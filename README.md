@@ -8,6 +8,21 @@ The purpose is not to ship another generic chatbot. The purpose is to show how a
 
 Gigamon has rich network visibility in Sentinel; MCP turns that visibility into reusable agent tools such as "summarize posture," "triage lateral movement," "hunt DNS anomalies," and "summarize TLS risk."
 
+## New to Sentinel? Read this first
+
+| Term | Plain-English meaning |
+| --- | --- |
+| Microsoft Sentinel | Microsoft's cloud SIEM. It helps security teams collect logs, detect threats, investigate incidents, and respond. |
+| Log Analytics workspace | The Azure data store Sentinel uses for logs. Think "database for security telemetry." |
+| Table | A named set of rows in the workspace. This demo writes to `GigamonCcfMcpDemo_CL`. |
+| KQL | Kusto Query Language. This is the query language used to search Sentinel logs. |
+| LogSeeder | A sample-data tool that creates a table and inserts realistic demo rows. |
+| DCE | Data Collection Endpoint. The Azure ingestion URL where custom log data is sent. |
+| DCR | Data Collection Rule. The Azure rule that maps incoming data into the right table and columns. |
+| MCP tool | A callable tool an agent can use. In this repo, each MCP tool runs one curated KQL query. |
+
+The short version: **LogSeeder puts Gigamon-shaped rows into Sentinel; KQL asks useful security questions; MCP wraps those questions so an agent or app can call them.**
+
 ## What this demo proves
 
 A Gigamon developer can:
@@ -34,6 +49,17 @@ KQL-backed custom Sentinel MCP tools
         v
 Interactive terminal demo that routes natural prompts to those tools
 ```
+
+## What gets created
+
+| Asset | Created by | Why it exists |
+| --- | --- | --- |
+| `GigamonCcfMcpDemo_CL` table | LogSeeder | Stores demo Gigamon CCF-style telemetry in Sentinel |
+| Data Collection Endpoint | LogSeeder/Azure Monitor | Provides the ingestion endpoint for custom logs |
+| Data Collection Rule | LogSeeder/Azure Monitor | Maps JSON fields into the custom table columns |
+| `Gigamon-Sentinel-MCP-Demo` collection | `scripts/publish-mcp-tools.py` | Groups the custom MCP tools |
+| Five MCP tools | `scripts/publish-mcp-tools.py` | Expose repeatable Gigamon investigation questions |
+| Terminal demo | `terminal_demo.py` | Lets a presenter call the tools from a prompt |
 
 ## Why this matters for Gigamon developers
 
@@ -80,12 +106,12 @@ For the full narrative, value proposition, latest real outputs, and talk track f
 
 You need:
 
-1. Azure CLI authenticated to the Sentinel workspace subscription.
-2. A Log Analytics workspace with Microsoft Sentinel enabled.
-3. Permissions to create custom tables, DCRs, and DCEs, or an existing LogSeeder deployment path.
-4. PowerShell 7 for LogSeeder.
-5. Python 3.9+ for the MCP publishing helper and terminal demo.
-6. Access to Sentinel custom MCP tool collection APIs.
+1. **Azure CLI** authenticated to the Sentinel workspace subscription.
+2. **A Log Analytics workspace** with Microsoft Sentinel enabled.
+3. **Permission to create custom log ingestion resources:** custom tables, DCRs, and DCEs.
+4. **PowerShell 7** for LogSeeder.
+5. **Python 3.9+** for the MCP publishing helper and terminal demo.
+6. **Access to Sentinel custom MCP tool collection APIs** so the KQL files can be published as tools.
 
 For the existing Mitchell demo workspace, the configured workspace customer ID is:
 
@@ -94,6 +120,8 @@ For the existing Mitchell demo workspace, the configured workspace customer ID i
 ```
 
 ## Seed data with LogSeeder
+
+This step creates the custom table and sends demo rows into Sentinel. If you are new to Azure Monitor ingestion, the important part is that LogSeeder hides most of the plumbing: it creates or reuses a DCE, creates a DCR, maps the schema, and posts sample data.
 
 Copy `logseeder/GigamonCcfMcpDemo_CL.json` into your `sentinel-logseeder/schemas/` folder, then run:
 
@@ -115,6 +143,8 @@ Verify rows:
 GigamonCcfMcpDemo_CL
 | summarize RowCount=count(), FirstSeen=min(TimeGenerated), LastSeen=max(TimeGenerated)
 ```
+
+If the query returns zero rows immediately after ingestion, wait a few minutes and query again. New custom tables and DCR mappings can take time to become queryable.
 
 Useful validation queries:
 
@@ -139,6 +169,8 @@ GigamonCcfMcpDemo_CL
 ## Publish custom MCP tools
 
 Create a Sentinel custom MCP collection, then publish each file in `mcp-tools/` as a KQL-backed tool. The tool input should include `workspaceId`; the KQL in this repo assumes the table already exists in that workspace.
+
+Think of this step as packaging saved Sentinel questions into tools. Instead of asking an AI model to write KQL, the model or app calls a trusted tool that already contains the right query.
 
 Suggested collection name:
 
@@ -214,6 +246,16 @@ The terminal demo has a simple prompt router:
 | anything else | `Gigamon_Visibility_Posture_Summary` |
 
 This router is intentionally simple. In a production ISV app, this could be replaced with an LLM planner, a workflow engine, or explicit UI buttons.
+
+## Troubleshooting quick hits
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| `az` token errors | Azure CLI is not signed in or points to the wrong tenant/subscription | Run `az login` and `az account set --subscription <id>` |
+| Ingestion succeeds but queries return 0 rows | Table/DCR propagation delay | Wait a few minutes and rerun the KQL |
+| MCP publish fails with permission errors | Missing Sentinel custom MCP management permission | Use an account with access to publish tool collections |
+| Terminal demo says workspace is missing | `.env` does not contain `MCP_DEFAULT_ARGUMENTS` | Set `{"workspaceId":"<workspace-customer-id>"}` |
+| Tool returns no rows | Demo data aged out or was not ingested | Re-run LogSeeder with a fresh `TimeWindowMinutes` |
 
 ## Talk track
 

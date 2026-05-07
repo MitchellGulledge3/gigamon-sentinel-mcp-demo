@@ -6,6 +6,16 @@ This document explains the story each custom MCP tool tells, the value it create
 
 Gigamon gives security teams deep network visibility. Microsoft Sentinel gives them a cloud-native investigation and correlation plane. Custom MCP tools turn Gigamon's Sentinel data into reusable agent capabilities.
 
+If you are new to Microsoft security tooling, read the demo like this:
+
+| Layer | What it does |
+| --- | --- |
+| Gigamon | Produces rich network metadata such as flows, apps, DNS, TLS, sources, and destinations |
+| Microsoft Sentinel | Stores and investigates security data in a Log Analytics workspace |
+| KQL | Asks precise questions over the Sentinel data |
+| MCP | Wraps those questions as tools an agent or app can safely call |
+| Terminal demo | Shows the tool calls without requiring Teams, browser setup, or a custom UI |
+
 The demo is strongest when positioned as a developer pattern:
 
 1. Gigamon ships or publishes focused tool definitions around the questions its telemetry is uniquely good at answering.
