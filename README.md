@@ -2,7 +2,7 @@
 
 This repo is a GitHub-ready reference implementation for a Gigamon developer who wants to show an end-to-end Microsoft Sentinel custom MCP tool integration.
 
-The purpose is not to ship another generic chatbot. The purpose is to show how an ISV can expose focused, high-value security capabilities as **MCP tools** over the data they already bring into Microsoft Sentinel. Once those tools exist, a local browser app, an ISV product experience, a Copilot-style UI, or another agent runtime can call the same capability.
+The purpose is not to ship another generic chatbot. The purpose is to show how an ISV can expose focused, high-value security capabilities as **MCP tools** over the data they already bring into Microsoft Sentinel. Once those tools exist, a terminal demo, an ISV product experience, a Copilot-style UI, or another agent runtime can call the same capability.
 
 ## The story in one sentence
 
@@ -15,7 +15,7 @@ A Gigamon developer can:
 1. Start from the official Sentinel connector table schema.
 2. Use Sentinel LogSeeder to create a demo custom table and seed realistic telemetry.
 3. Publish high-value KQL questions as Sentinel custom MCP tools.
-4. Call those tools from a polished local browser app or any future agent runtime.
+4. Call those tools from a simple terminal prompt loop or any future agent runtime.
 
 ## Architecture
 
@@ -32,7 +32,7 @@ GigamonCcfMcpDemo_CL in Log Analytics / Sentinel
 KQL-backed custom Sentinel MCP tools
         |
         v
-Local Edge/browser app that routes natural prompts to those tools
+Interactive terminal demo that routes natural prompts to those tools
 ```
 
 ## Why this matters for Gigamon developers
@@ -45,7 +45,7 @@ The developer does not have to guess what an agent might need. They can package 
 | LogSeeder schema | Lets a developer or seller stand up demo data without waiting on a live appliance |
 | KQL files | Make the security logic inspectable, reviewable, and versionable |
 | MCP publisher script | Converts KQL into callable custom tools |
-| Browser app | Shows the agent experience without Teams/admin-consent friction |
+| Terminal demo | Shows the end-to-end tool call without Teams, browser, or admin-consent friction |
 | Source annotations | Helps a developer understand and customize every moving part |
 
 ## Demo table
@@ -82,7 +82,7 @@ You need:
 2. A Log Analytics workspace with Microsoft Sentinel enabled.
 3. Permissions to create custom tables, DCRs, and DCEs, or an existing LogSeeder deployment path.
 4. PowerShell 7 for LogSeeder.
-5. Python 3.9+ for the MCP publishing helper and local web app.
+5. Python 3.9+ for the MCP publishing helper and terminal demo.
 6. Access to Sentinel custom MCP tool collection APIs.
 
 For the existing Mitchell demo workspace, the configured workspace customer ID is:
@@ -161,12 +161,12 @@ The script:
 4. Wraps each query in the custom MCP tool payload shape.
 5. Publishes each tool with `workspaceId` as the required input.
 
-## Browser demo
+## Terminal demo
 
-Run the included local browser app:
+Run the included interactive terminal demo:
 
 ```bash
-cd /path/to/gigamon-sentinel-mcp-demo/web
+cd /path/to/gigamon-sentinel-mcp-demo
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -182,13 +182,7 @@ MCP_DEFAULT_ARGUMENTS={"workspaceId":"<log-analytics-workspace-customer-id>"}
 Then start the app:
 
 ```bash
-python3 web_app.py
-```
-
-Open:
-
-```text
-http://127.0.0.1:8765
+python3 terminal_demo.py --show-raw
 ```
 
 Type prompts like:
@@ -201,7 +195,13 @@ Summarize TLS risk
 Show top talkers by app
 ```
 
-The web app has a simple prompt router:
+For a single command you can paste into a demo script, run:
+
+```bash
+python3 terminal_demo.py --prompt "Show possible lateral movement" --show-raw
+```
+
+The terminal demo has a simple prompt router:
 
 | Prompt contains | Tool selected |
 | --- | --- |
@@ -237,7 +237,7 @@ For a real Gigamon-delivered asset, replace the demo pieces as follows:
 | `GigamonCcfMcpDemo_CL` | Use the real `GigamonV2_CL` table or customer-selected table |
 | LogSeeder sample values | Use real product telemetry from the connector |
 | Static prompt router | Use explicit product UI actions or an agent planner |
-| Local browser app | Embed the tool calls into a Gigamon console, Copilot-like app, or partner integration |
+| Terminal demo | Embed the same tool calls into a Gigamon console, Copilot-like app, or partner integration |
 | Single workspace ID | Let customer configuration choose the Sentinel workspace |
 
 ## Files
@@ -248,6 +248,7 @@ For a real Gigamon-delivered asset, replace the demo pieces as follows:
 | `logseeder/GigamonCcfMcpDemo_CL.annotated.jsonc` | Commented explanation of the schema without breaking valid JSON |
 | `mcp-tools/*.kql` | KQL definitions for custom Sentinel MCP tools |
 | `scripts/publish-mcp-tools.py` | Publishes the KQL files as Sentinel custom MCP tools |
-| `web/` | Local Edge/browser app that routes prompts to the Gigamon MCP tools |
+| `terminal_demo.py` | Interactive terminal prompt loop that routes prompts to the Gigamon MCP tools |
+| `sentinel_mcp_demo/` | Minimal Sentinel MCP client used by the terminal demo |
 | `docs/demo-script.md` | Step-by-step presenter script |
 | `docs/source-line-notes.md` | Exhaustive source-line notes for Python and JSON files |

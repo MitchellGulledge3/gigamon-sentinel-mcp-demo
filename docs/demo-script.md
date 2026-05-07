@@ -6,7 +6,7 @@
 2. Show `logseeder/GigamonCcfMcpDemo_CL.json`, derived from that schema.
 3. Run LogSeeder to create and seed `GigamonCcfMcpDemo_CL`.
 4. Publish the MCP tools from `mcp-tools/`.
-5. Open the browser demo.
+5. Start the terminal demo.
 
 ## Live prompts
 
@@ -15,6 +15,12 @@
 3. `Hunt DNS anomalies`
 4. `Summarize TLS risk`
 5. `Show top talkers by app`
+
+Run them in one interactive terminal:
+
+```bash
+python3 terminal_demo.py --show-raw
+```
 
 ## Close
 

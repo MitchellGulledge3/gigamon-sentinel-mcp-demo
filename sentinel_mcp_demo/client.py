@@ -2,7 +2,7 @@ from __future__ import annotations
 
 """Minimal async client for Sentinel custom MCP collections.
 
-The browser demo only needs three MCP operations: initialize the session,
+The terminal demo only needs three MCP operations: initialize the session,
 discover tools, and call one selected tool. This module keeps that flow explicit
 so Gigamon developers can see the exact JSON-RPC messages and authentication
 choices instead of hiding them behind a large framework.
@@ -41,7 +41,7 @@ class MCPToolResult:
 
     @property
     def text(self) -> str:
-        """Render text content into a display-friendly string for the web UI."""
+        """Render text content into a display-friendly string for the terminal."""
 
         if not self.content:
             return ""
@@ -108,7 +108,7 @@ class SentinelMCPError(RuntimeError):
 
 
 class SentinelMCPClient:
-    """Async Sentinel MCP client used by the local browser demo."""
+    """Async Sentinel MCP client used by the local terminal demo."""
 
     def __init__(
         self,

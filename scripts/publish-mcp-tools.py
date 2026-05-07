@@ -126,7 +126,7 @@ def main() -> int:
     print(json.dumps(request("PUT", f"{API_BASE}/{args.collection}", token, collection_payload), indent=2))
 
     # Each KQL filename becomes the MCP tool name, which keeps source control,
-    # Sentinel, and the browser prompt router aligned.
+    # Sentinel, and the terminal prompt router aligned.
     for query_path in sorted(pathlib.Path(args.tools_dir).glob("*.kql")):
         payload = tool_payload(args.collection, args.workspace_id, query_path)
         print(f"\nPublishing tool: {payload['name']}")

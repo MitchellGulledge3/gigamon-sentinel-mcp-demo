@@ -1171,7 +1171,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 30 | <code>}</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 31 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 32 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 33 | <code>def az_token() -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 33 | <code>def az_token() -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 34 | <code>    &quot;&quot;&quot;Return a Sentinel Platform Services bearer token from Azure CLI.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 35 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 36 | <code>    # Azure CLI handles the interactive/device auth experience; the script only</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
@@ -1195,7 +1195,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 54 | <code>    return completed.stdout.strip()</code> | Returns the computed value to the caller. |
 | 55 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 56 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 57 | <code>def request(method: str, url: str, token: str, payload: dict) -&gt; dict:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 57 | <code>def request(method: str, url: str, token: str, payload: dict) -&gt; dict:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 58 | <code>    &quot;&quot;&quot;Send one authenticated JSON request to the Sentinel MCP management API.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 59 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 60 | <code>    body = json.dumps(payload).encode(&quot;utf-8&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1218,7 +1218,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 77 | <code>        raise RuntimeError(f&quot;{method} {url} failed: HTTP {exc.code}: {details}&quot;) from exc</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
 | 78 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 79 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 80 | <code>def tool_payload(collection: str, workspace_id: str, query_path: pathlib.Path) -&gt; dict:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 80 | <code>def tool_payload(collection: str, workspace_id: str, query_path: pathlib.Path) -&gt; dict:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 81 | <code>    &quot;&quot;&quot;Build the custom MCP tool payload for a single `.kql` file.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 82 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 83 | <code>    name = query_path.stem</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1248,7 +1248,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 107 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 108 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 109 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 110 | <code>def main() -&gt; int:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 110 | <code>def main() -&gt; int:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 111 | <code>    &quot;&quot;&quot;Parse CLI flags, publish the collection, then publish every KQL tool.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 112 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 113 | <code>    parser = argparse.ArgumentParser(description=&quot;Publish Gigamon KQL files as Sentinel custom MCP tools.&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1267,7 +1267,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 126 | <code>    print(json.dumps(request(&quot;PUT&quot;, f&quot;{API_BASE}/{args.collection}&quot;, token, collection_payload), indent=2))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 127 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 128 | <code>    # Each KQL filename becomes the MCP tool name, which keeps source control,</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 129 | <code>    # Sentinel, and the browser prompt router aligned.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
+| 129 | <code>    # Sentinel, and the terminal prompt router aligned.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
 | 130 | <code>    for query_path in sorted(pathlib.Path(args.tools_dir).glob(&quot;*.kql&quot;)):</code> | Iterates over a collection or stream to process multiple values. |
 | 131 | <code>        payload = tool_payload(args.collection, args.workspace_id, query_path)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 132 | <code>        print(f&quot;\nPublishing tool: {payload[&#x27;name&#x27;]}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
@@ -1279,14 +1279,14 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 138 | <code>if __name__ == &quot;__main__&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
 | 139 | <code>    sys.exit(main())</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 
-## `web/sentinel_mcp_demo/__init__.py`
+## `sentinel_mcp_demo/__init__.py`
 
 | Line | Code | Note |
 | ---: | --- | --- |
 | 1 | <code>&quot;&quot;&quot;Local Sentinel MCP chatbot demo package.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 2 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 
-## `web/sentinel_mcp_demo/client.py`
+## `sentinel_mcp_demo/client.py`
 
 | Line | Code | Note |
 | ---: | --- | --- |
@@ -1294,7 +1294,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 2 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 3 | <code>&quot;&quot;&quot;Minimal async client for Sentinel custom MCP collections.</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 4 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 5 | <code>The browser demo only needs three MCP operations: initialize the session,</code> | Implements the MCP JSON-RPC lifecycle used by Sentinel custom tool endpoints. |
+| 5 | <code>The terminal demo only needs three MCP operations: initialize the session,</code> | Implements the MCP JSON-RPC lifecycle used by Sentinel custom tool endpoints. |
 | 6 | <code>discover tools, and call one selected tool. This module keeps that flow explicit</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 7 | <code>so Gigamon developers can see the exact JSON-RPC messages and authentication</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 8 | <code>choices instead of hiding them behind a large framework.</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
@@ -1332,8 +1332,8 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 40 | <code>    is_error: bool = False</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 41 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 42 | <code>    @property</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 43 | <code>    def text(self) -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 44 | <code>        &quot;&quot;&quot;Render text content into a display-friendly string for the web UI.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 43 | <code>    def text(self) -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 44 | <code>        &quot;&quot;&quot;Render text content into a display-friendly string for the terminal.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 45 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 46 | <code>        if not self.content:</code> | Branches behavior based on configuration, input, or response shape. |
 | 47 | <code>            return &quot;&quot;</code> | Returns the computed value to the caller. |
@@ -1346,7 +1346,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 54 | <code>        return &quot;\n&quot;.join(parts)</code> | Returns the computed value to the caller. |
 | 55 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 56 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 57 | <code>def format_tool_text(text: str) -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 57 | <code>def format_tool_text(text: str) -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 58 | <code>    &quot;&quot;&quot;Format Kusto V2 DataSet JSON returned by Sentinel MCP into a readable table.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 59 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
 | 60 | <code>        frames = json.loads(text)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1380,14 +1380,14 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 88 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 89 | <code>    rendered_rows = [[str(value) for value in row] for row in rows]</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 90 | <code>    widths = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 91 | <code>        max(len(str(columns[i])), *(len(row[i]) if i &lt; len(row) else 0 for row in rendered_rows))</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
+| 91 | <code>        max(len(str(columns[i])), *(len(row[i]) if i &lt; len(row) else 0 for row in rendered_rows))</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 92 | <code>        for i in range(len(columns))</code> | Iterates over a collection or stream to process multiple values. |
 | 93 | <code>    ]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 94 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 95 | <code>    header = &quot; | &quot;.join(str(columns[i]).ljust(widths[i]) for i in range(len(columns)))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 96 | <code>    divider = &quot;-+-&quot;.join(&quot;-&quot; * width for width in widths)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 97 | <code>    body = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 98 | <code>        &quot; | &quot;.join((row[i] if i &lt; len(row) else &quot;&quot;).ljust(widths[i]) for i in range(len(columns)))</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
+| 98 | <code>        &quot; | &quot;.join((row[i] if i &lt; len(row) else &quot;&quot;).ljust(widths[i]) for i in range(len(columns)))</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 99 | <code>        for row in rendered_rows</code> | Iterates over a collection or stream to process multiple values. |
 | 100 | <code>    ]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 101 | <code>    return &quot;\n&quot;.join([header, divider, *body])</code> | Returns the computed value to the caller. |
@@ -1400,9 +1400,9 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 108 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 109 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 110 | <code>class SentinelMCPClient:</code> | Defines a class that groups state and behavior for this part of the demo. |
-| 111 | <code>    &quot;&quot;&quot;Async Sentinel MCP client used by the local browser demo.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 111 | <code>    &quot;&quot;&quot;Async Sentinel MCP client used by the local terminal demo.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 112 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 113 | <code>    def __init__(</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 113 | <code>    def __init__(</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 114 | <code>        self,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 115 | <code>        *,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 116 | <code>        collection: str | None = None,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1424,7 +1424,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 132 | <code>        self._request_ids = count(1)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 133 | <code>        self.tools: list[MCPTool] = []</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 134 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 135 | <code>    async def connect(self) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 135 | <code>    async def connect(self) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 136 | <code>        &quot;&quot;&quot;Authenticate, initialize the MCP session, and cache available tools.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 137 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 138 | <code>        token = await self._get_token()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1448,14 +1448,14 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 156 | <code>        await self._send_notification(&quot;notifications/initialized&quot;, {})</code> | Implements the MCP JSON-RPC lifecycle used by Sentinel custom tool endpoints. |
 | 157 | <code>        self.tools = await self.list_tools()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 158 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 159 | <code>    async def close(self) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 159 | <code>    async def close(self) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 160 | <code>        &quot;&quot;&quot;Dispose the underlying HTTP client.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 161 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 162 | <code>        if self._http:</code> | Branches behavior based on configuration, input, or response shape. |
 | 163 | <code>            await self._http.aclose()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 164 | <code>            self._http = None</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 165 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 166 | <code>    async def list_tools(self) -&gt; list[MCPTool]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 166 | <code>    async def list_tools(self) -&gt; list[MCPTool]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 167 | <code>        &quot;&quot;&quot;Fetch tool metadata from the custom Sentinel MCP collection.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 168 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 169 | <code>        response = await self._send_request(&quot;tools/list&quot;, {})</code> | Implements the MCP JSON-RPC lifecycle used by Sentinel custom tool endpoints. |
@@ -1468,7 +1468,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 176 | <code>            for item in response.get(&quot;tools&quot;, [])</code> | Iterates over a collection or stream to process multiple values. |
 | 177 | <code>        ]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 178 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 179 | <code>    async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -&gt; MCPToolResult:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 179 | <code>    async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -&gt; MCPToolResult:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 180 | <code>        &quot;&quot;&quot;Call one MCP tool by name with a JSON-object argument payload.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 181 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 182 | <code>        response = await self._send_request(</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1481,7 +1481,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 189 | <code>            is_error=response.get(&quot;isError&quot;, False),</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 190 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 191 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 192 | <code>    async def _get_token(self) -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 192 | <code>    async def _get_token(self) -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 193 | <code>        &quot;&quot;&quot;Resolve credentials from environment first, then fall back to Azure CLI/browser auth.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 194 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 195 | <code>        tenant_id = os.getenv(&quot;AZURE_TENANT_ID&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1502,7 +1502,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 210 | <code>        async with DefaultAzureCredential() as credential:</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 211 | <code>            return (await credential.get_token(SENTINEL_SCOPE)).token</code> | Returns the computed value to the caller. |
 | 212 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 213 | <code>    async def _send_request(self, method: str, params: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 213 | <code>    async def _send_request(self, method: str, params: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 214 | <code>        &quot;&quot;&quot;Send a JSON-RPC request and normalize either JSON or SSE responses.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 215 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 216 | <code>        if not self._http:</code> | Branches behavior based on configuration, input, or response shape. |
@@ -1535,7 +1535,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 243 | <code>                raise SentinelMCPError(message[&quot;error&quot;].get(&quot;message&quot;, str(message[&quot;error&quot;])))</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
 | 244 | <code>            return message.get(&quot;result&quot;, message)</code> | Returns the computed value to the caller. |
 | 245 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 246 | <code>    async def _send_notification(self, method: str, params: dict[str, Any]) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 246 | <code>    async def _send_notification(self, method: str, params: dict[str, Any]) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 247 | <code>        &quot;&quot;&quot;Send a JSON-RPC notification, which has no response ID/result.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 248 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 249 | <code>        if not self._http:</code> | Branches behavior based on configuration, input, or response shape. |
@@ -1546,7 +1546,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 254 | <code>            json={&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: method, &quot;params&quot;: params},</code> | Implements the MCP JSON-RPC lifecycle used by Sentinel custom tool endpoints. |
 | 255 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 256 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 257 | <code>    async def _parse_sse_response(self, response: httpx.Response, request_id: int) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 257 | <code>    async def _parse_sse_response(self, response: httpx.Response, request_id: int) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 258 | <code>        &quot;&quot;&quot;Collect SSE data frames until the matching JSON-RPC result appears.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 259 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 260 | <code>        data_lines: list[str] = []</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
@@ -1569,7 +1569,7 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 277 | <code>        raise SentinelMCPError(&quot;SSE stream ended without a JSON-RPC result.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
 | 278 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 279 | <code>    @staticmethod</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 280 | <code>    def _parse_sse_message(data: str, request_id: int) -&gt; dict[str, Any] | None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
+| 280 | <code>    def _parse_sse_message(data: str, request_id: int) -&gt; dict[str, Any] | None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
 | 281 | <code>        &quot;&quot;&quot;Parse one SSE data payload and return only the result for our request.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 282 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 283 | <code>        try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
@@ -1585,16 +1585,16 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 293 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 294 | <code>        return message.get(&quot;result&quot;, message)</code> | Returns the computed value to the caller. |
 
-## `web/sentinel_mcp_demo/mock.py`
+## `sentinel_mcp_demo/mock.py`
 
 | Line | Code | Note |
 | ---: | --- | --- |
 | 1 | <code>from __future__ import annotations</code> | Enables postponed annotation evaluation so type hints stay lightweight and forward-compatible. |
 | 2 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 3 | <code>&quot;&quot;&quot;Mock MCP client used when the browser demo runs without Azure connectivity.</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 3 | <code>&quot;&quot;&quot;Mock MCP client used when the terminal demo runs without Azure connectivity.</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 4 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 5 | <code>The mock intentionally mirrors the small interface exposed by `SentinelMCPClient`</code> | Connects the local demo to the Sentinel custom MCP collection. |
-| 6 | <code>so the rest of the web app can switch between `MCP_DEMO_MODE=mock` and</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 5 | <code>The mock intentionally mirrors the small interface exposed by `SentinelMCPClient`</code> | Connects the terminal demo to the Sentinel custom MCP collection. |
+| 6 | <code>so the rest of the terminal app can switch between `MCP_DEMO_MODE=mock` and</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 7 | <code>`MCP_DEMO_MODE=real` without branching throughout the codebase.</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
 | 8 | <code>&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 9 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
@@ -1607,109 +1607,129 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 16 | <code>class MockSentinelMCPClient:</code> | Defines a class that groups state and behavior for this part of the demo. |
 | 17 | <code>    &quot;&quot;&quot;Return deterministic MCP-like results for offline presenter practice.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 18 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 19 | <code>    def __init__(self) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 20 | <code>        # These legacy mock tools are generic examples; real Gigamon demos should</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 21 | <code>        # use `MCP_DEMO_MODE=real` with the Gigamon Sentinel MCP collection.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 22 | <code>        self.tools = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 23 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 24 | <code>                name=&quot;Recovery_Confidence_Summary&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 25 | <code>                description=&quot;Summarize backup and restore readiness for an impacted asset.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 26 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 27 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 28 | <code>                    &quot;properties&quot;: {&quot;query&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;hostName&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 29 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 30 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 31 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 32 | <code>                name=&quot;Sensitive_Data_Blast_Radius&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 33 | <code>                description=&quot;Summarize sensitive data touched by a user or device during an incident window.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 34 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 35 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 36 | <code>                    &quot;properties&quot;: {&quot;query&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;userId&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 37 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 38 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 39 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 40 | <code>                name=&quot;Edge_Attack_Summary&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 41 | <code>                description=&quot;Summarize WAF, DDoS, DNS, or edge traffic signals for an investigation.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 42 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 43 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 44 | <code>                    &quot;properties&quot;: {&quot;query&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;domain&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 45 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 46 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 47 | <code>        ]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 48 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 49 | <code>    async def connect(self) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 50 | <code>        &quot;&quot;&quot;Match the real client&#x27;s async connect method without doing network I/O.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 51 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 52 | <code>        return None</code> | Returns the computed value to the caller. |
-| 53 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 54 | <code>    async def close(self) -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 55 | <code>        &quot;&quot;&quot;Match the real client&#x27;s async close method without owning resources.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 19 | <code>    def __init__(self) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 20 | <code>        self.tools = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 21 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 22 | <code>                name=&quot;Gigamon_Visibility_Posture_Summary&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 23 | <code>                description=&quot;Summarize Gigamon visibility posture across sources, destinations, apps, and bytes.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 24 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 25 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 26 | <code>                    &quot;properties&quot;: {&quot;workspaceId&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 27 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 28 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 29 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 30 | <code>                name=&quot;Gigamon_Lateral_Movement_Triage&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 31 | <code>                description=&quot;Triage possible east-west movement over SMB, RDP, and SSH.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 32 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 33 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 34 | <code>                    &quot;properties&quot;: {&quot;workspaceId&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 35 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 36 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 37 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 38 | <code>                name=&quot;Gigamon_DNS_Anomaly_Hunt&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 39 | <code>                description=&quot;Hunt DNS anomalies using query types, reply codes, and response times.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 40 | <code>                input_schema={</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 41 | <code>                    &quot;type&quot;: &quot;object&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 42 | <code>                    &quot;properties&quot;: {&quot;workspaceId&quot;: {&quot;type&quot;: &quot;string&quot;}},</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 43 | <code>                },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 44 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 45 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 46 | <code>                name=&quot;Gigamon_TLS_Risk_Summary&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 47 | <code>                description=&quot;Summarize weak TLS protocol, key length, certificate, and JA3 signals.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 48 | <code>                input_schema={&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;workspaceId&quot;: {&quot;type&quot;: &quot;string&quot;}}},</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 49 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 50 | <code>            MCPTool(</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 51 | <code>                name=&quot;Gigamon_Top_Talkers_By_App&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 52 | <code>                description=&quot;Rank applications by flows, bytes, packets, sources, and destinations.&quot;,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 53 | <code>                input_schema={&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;workspaceId&quot;: {&quot;type&quot;: &quot;string&quot;}}},</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 54 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 55 | <code>        ]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 56 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 57 | <code>        return None</code> | Returns the computed value to the caller. |
-| 58 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 59 | <code>    async def list_tools(self) -&gt; list[MCPTool]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 60 | <code>        &quot;&quot;&quot;Return static tool metadata in the same shape as `tools/list`.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 57 | <code>    async def connect(self) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 58 | <code>        &quot;&quot;&quot;Match the real client&#x27;s async connect method without doing network I/O.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 59 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 60 | <code>        return None</code> | Returns the computed value to the caller. |
 | 61 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 62 | <code>        return self.tools</code> | Returns the computed value to the caller. |
-| 63 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 64 | <code>    async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -&gt; MCPToolResult:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 65 | <code>        &quot;&quot;&quot;Return a deterministic text result shaped like an MCP tool response.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 62 | <code>    async def close(self) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 63 | <code>        &quot;&quot;&quot;Match the real client&#x27;s async close method without owning resources.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 64 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 65 | <code>        return None</code> | Returns the computed value to the caller. |
 | 66 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 67 | <code>        args = arguments or {}</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 68 | <code>        subject = args.get(&quot;hostName&quot;) or args.get(&quot;userId&quot;) or args.get(&quot;domain&quot;) or args.get(&quot;query&quot;) or &quot;demo target&quot;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 69 | <code>        text = {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 70 | <code>            &quot;Recovery_Confidence_Summary&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 71 | <code>                f&quot;Recovery confidence for {subject}: HIGH\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 72 | <code>                &quot;- Last successful immutable backup: 2 hours ago\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 73 | <code>                &quot;- No suspicious backup deletion activity detected\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 74 | <code>                &quot;- Recommended action: proceed with restore validation and preserve current snapshot&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 75 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 76 | <code>            &quot;Sensitive_Data_Blast_Radius&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 77 | <code>                f&quot;Sensitive data blast radius for {subject}: MEDIUM\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 78 | <code>                &quot;- 17 sensitive files accessed in the incident window\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 79 | <code>                &quot;- 3 external sharing changes require review\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 80 | <code>                &quot;- Recommended action: revoke stale permissions and open insider-risk review&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 81 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 82 | <code>            &quot;Edge_Attack_Summary&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 83 | <code>                f&quot;Edge attack summary for {subject}: ELEVATED\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 84 | <code>                &quot;- WAF rule hits increased 4.2x over baseline\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 85 | <code>                &quot;- Top sources concentrated in 3 ASNs\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 86 | <code>                &quot;- Recommended action: review bot mitigation policy and block high-risk ASN cluster&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 87 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 88 | <code>        }.get(tool_name, f&quot;Mock result for {tool_name}:\\n{json.dumps(args, indent=2)}&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 89 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 90 | <code>        return MCPToolResult(</code> | Returns the computed value to the caller. |
-| 91 | <code>            tool_name=tool_name,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 92 | <code>            content=[{&quot;type&quot;: &quot;text&quot;, &quot;text&quot;: text}],</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 93 | <code>            is_error=False,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 94 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 67 | <code>    async def list_tools(self) -&gt; list[MCPTool]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 68 | <code>        &quot;&quot;&quot;Return static tool metadata in the same shape as `tools/list`.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 69 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 70 | <code>        return self.tools</code> | Returns the computed value to the caller. |
+| 71 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 72 | <code>    async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -&gt; MCPToolResult:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 73 | <code>        &quot;&quot;&quot;Return a deterministic text result shaped like an MCP tool response.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 74 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 75 | <code>        args = arguments or {}</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 76 | <code>        workspace = args.get(&quot;workspaceId&quot;) or &quot;mock-workspace&quot;</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
+| 77 | <code>        text = {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 78 | <code>            &quot;Gigamon_Visibility_Posture_Summary&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 79 | <code>                f&quot;Visibility posture for {workspace}: 274 Gigamon events across 24 sources and 19 destinations.\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 80 | <code>                &quot;- Top apps: https, dns, smb, rdp, ssh\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 81 | <code>                &quot;- Total bytes observed: 3.8 GB\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 82 | <code>                &quot;- Recommended action: pivot into lateral movement and DNS tools for investigation depth&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 83 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 84 | <code>            &quot;Gigamon_Lateral_Movement_Triage&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 85 | <code>                f&quot;Lateral movement triage for {workspace}: elevated SMB/RDP/SSH east-west activity.\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 86 | <code>                &quot;- 31 candidate flows on ports 445, 3389, and 22\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 87 | <code>                &quot;- Top sources: 10.12.4.18, 10.12.4.23\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 88 | <code>                &quot;- Recommended action: isolate the top source and validate endpoint identity&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 89 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 90 | <code>            &quot;Gigamon_DNS_Anomaly_Hunt&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 91 | <code>                f&quot;DNS anomaly hunt for {workspace}: suspicious lookup pattern detected.\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 92 | <code>                &quot;- Failed responses: NXDOMAIN and SERVFAIL\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 93 | <code>                &quot;- Slow query family: TXT and A lookups\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 94 | <code>                &quot;- Recommended action: review queried domains and source workload owner&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 95 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 96 | <code>            &quot;Gigamon_TLS_Risk_Summary&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 97 | <code>                f&quot;TLS risk summary for {workspace}: weak crypto and JA3 observations require review.\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 98 | <code>                &quot;- Weak protocol: TLS 1.0 / TLS 1.1\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 99 | <code>                &quot;- Weak key observations: 1024-bit RSA\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 100 | <code>                &quot;- Recommended action: map issuer/common-name pairs to application owners&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 101 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 102 | <code>            &quot;Gigamon_Top_Talkers_By_App&quot;: (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 103 | <code>                f&quot;Top talkers for {workspace}: https and unknown-tcp dominate byte volume.\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 104 | <code>                &quot;- Top source: 10.12.8.44\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 105 | <code>                &quot;- Top destination: 52.239.148.88\n&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 106 | <code>                &quot;- Recommended action: verify sanctioned app ownership for high-volume transfers&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 107 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 108 | <code>        }.get(tool_name, f&quot;Mock result for {tool_name}:\n{json.dumps(args, indent=2)}&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 109 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 110 | <code>        return MCPToolResult(</code> | Returns the computed value to the caller. |
+| 111 | <code>            tool_name=tool_name,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 112 | <code>            content=[{&quot;type&quot;: &quot;text&quot;, &quot;text&quot;: text}],</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 113 | <code>            is_error=False,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 114 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 
-## `web/web_app.py`
+## `terminal_demo.py`
 
 | Line | Code | Note |
 | ---: | --- | --- |
 | 1 | <code>from __future__ import annotations</code> | Enables postponed annotation evaluation so type hints stay lightweight and forward-compatible. |
 | 2 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 3 | <code>&quot;&quot;&quot;Local browser experience for the Gigamon Sentinel MCP demo.</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 3 | <code>&quot;&quot;&quot;Interactive terminal demo for the Gigamon Sentinel MCP tools.</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 4 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 5 | <code>This file intentionally keeps the UI, routing logic, and web endpoints together</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 6 | <code>so a Gigamon developer can run one file and understand the end-to-end path:</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 7 | <code>browser prompt -&gt; local API -&gt; Sentinel MCP tool -&gt; Log Analytics result.</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 8 | <code>&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 9 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 10 | <code>import argparse</code> | Imports a standard library or dependency needed by this module. |
-| 11 | <code>import html</code> | Imports a standard library or dependency needed by this module. |
-| 12 | <code>import json</code> | Imports a standard library or dependency needed by this module. |
-| 13 | <code>import os</code> | Imports a standard library or dependency needed by this module. |
-| 14 | <code>from typing import Any</code> | Imports a standard library or dependency needed by this module. |
-| 15 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 16 | <code>from aiohttp import web</code> | Imports a standard library or dependency needed by this module. |
+| 5 | <code>This replaces the earlier browser demo with the lowest-friction presenter flow:</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 6 | <code>run one Python command, type normal investigation prompts, and show the tool</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 7 | <code>selection, arguments, concise summary, and raw Sentinel MCP result in the same</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 8 | <code>terminal window.</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 9 | <code>&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 10 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 11 | <code>import argparse</code> | Imports a standard library or dependency needed by this module. |
+| 12 | <code>import asyncio</code> | Imports a standard library or dependency needed by this module. |
+| 13 | <code>import json</code> | Imports a standard library or dependency needed by this module. |
+| 14 | <code>import os</code> | Imports a standard library or dependency needed by this module. |
+| 15 | <code>from typing import Any</code> | Imports a standard library or dependency needed by this module. |
+| 16 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 17 | <code>from dotenv import load_dotenv</code> | Imports a standard library or dependency needed by this module. |
 | 18 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 19 | <code>from sentinel_mcp_demo.client import MCPTool, MCPToolResult, SentinelMCPClient</code> | Imports a standard library or dependency needed by this module. |
+| 19 | <code>from sentinel_mcp_demo.client import MCPToolResult, SentinelMCPClient</code> | Imports a standard library or dependency needed by this module. |
 | 20 | <code>from sentinel_mcp_demo.mock import MockSentinelMCPClient</code> | Imports a standard library or dependency needed by this module. |
 | 21 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 22 | <code># Canonical MCP tool names published by `scripts/publish-mcp-tools.py`.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
+| 22 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
 | 23 | <code>GIGAMON_TOOLS = {</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
 | 24 | <code>    &quot;visibility&quot;: &quot;Gigamon_Visibility_Posture_Summary&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 25 | <code>    &quot;lateral&quot;: &quot;Gigamon_Lateral_Movement_Triage&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
@@ -1718,742 +1738,223 @@ This file explains every Python and JSON source line in the demo repository. JSO
 | 28 | <code>    &quot;talkers&quot;: &quot;Gigamon_Top_Talkers_By_App&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 29 | <code>}</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 30 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 31 | <code># A simple keyword router keeps the demo deterministic and explainable. It is</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 32 | <code># not meant to replace an LLM planner; it shows which tool each prompt triggers.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 33 | <code>TOOL_ROUTES = [</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 34 | <code>    ((&quot;lateral&quot;, &quot;east-west&quot;, &quot;rdp&quot;, &quot;smb&quot;, &quot;ssh&quot;, &quot;movement&quot;), GIGAMON_TOOLS[&quot;lateral&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 35 | <code>    ((&quot;dns&quot;, &quot;domain&quot;, &quot;lookup&quot;, &quot;nxdomain&quot;, &quot;servfail&quot;), GIGAMON_TOOLS[&quot;dns&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 36 | <code>    ((&quot;tls&quot;, &quot;ssl&quot;, &quot;cert&quot;, &quot;certificate&quot;, &quot;ja3&quot;, &quot;weak key&quot;), GIGAMON_TOOLS[&quot;tls&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 37 | <code>    ((&quot;top&quot;, &quot;talker&quot;, &quot;app&quot;, &quot;bytes&quot;, &quot;packets&quot;, &quot;bandwidth&quot;), GIGAMON_TOOLS[&quot;talkers&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 38 | <code>]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 39 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 40 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 41 | <code># The demo is a single-page app embedded as a string to keep setup friction low:</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 42 | <code># no frontend build chain, no npm install, and no separate static-file server.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 43 | <code>HTML = &quot;&quot;&quot;&lt;!doctype html&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 44 | <code>&lt;html lang=&quot;en&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 45 | <code>&lt;head&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 46 | <code>  &lt;meta charset=&quot;utf-8&quot; /&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 47 | <code>  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 48 | <code>  &lt;title&gt;Gigamon Visibility Copilot&lt;/title&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 49 | <code>  &lt;style&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 50 | <code>    :root {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 51 | <code>      color-scheme: light;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 52 | <code>      --bg: #f5f5f5;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 53 | <code>      --panel: rgba(255,255,255,.82);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 54 | <code>      --text: #1f1f1f;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 55 | <code>      --muted: #616161;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 56 | <code>      --brand: #6264a7;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 57 | <code>      --brand2: #0078d4;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 58 | <code>      --line: rgba(0,0,0,.08);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 59 | <code>      --shadow: 0 24px 60px rgba(31,31,31,.16);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 60 | <code>      --radius: 22px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 61 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 62 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 63 | <code>    * { box-sizing: border-box; }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 31 | <code>TOOL_ROUTES = [</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
+| 32 | <code>    ((&quot;lateral&quot;, &quot;east-west&quot;, &quot;rdp&quot;, &quot;smb&quot;, &quot;ssh&quot;, &quot;movement&quot;), GIGAMON_TOOLS[&quot;lateral&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
+| 33 | <code>    ((&quot;dns&quot;, &quot;domain&quot;, &quot;lookup&quot;, &quot;nxdomain&quot;, &quot;servfail&quot;), GIGAMON_TOOLS[&quot;dns&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
+| 34 | <code>    ((&quot;tls&quot;, &quot;ssl&quot;, &quot;cert&quot;, &quot;certificate&quot;, &quot;ja3&quot;, &quot;weak key&quot;), GIGAMON_TOOLS[&quot;tls&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
+| 35 | <code>    ((&quot;top&quot;, &quot;talker&quot;, &quot;app&quot;, &quot;bytes&quot;, &quot;packets&quot;, &quot;bandwidth&quot;), GIGAMON_TOOLS[&quot;talkers&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
+| 36 | <code>]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 37 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 38 | <code>EXAMPLE_PROMPTS = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 39 | <code>    &quot;Summarize Gigamon visibility posture&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 40 | <code>    &quot;Show possible lateral movement&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 41 | <code>    &quot;Hunt DNS anomalies&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 42 | <code>    &quot;Summarize TLS risk&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 43 | <code>    &quot;Show top talkers by app&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 44 | <code>]</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 45 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 46 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 47 | <code>def parse_json_env(name: str, default: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 48 | <code>    &quot;&quot;&quot;Read an environment variable that must contain a JSON object.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 49 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 50 | <code>    raw = os.getenv(name)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 51 | <code>    if not raw:</code> | Branches behavior based on configuration, input, or response shape. |
+| 52 | <code>        return default</code> | Returns the computed value to the caller. |
+| 53 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 54 | <code>        value = json.loads(raw)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 55 | <code>    except json.JSONDecodeError as exc:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 56 | <code>        raise ValueError(f&quot;{name} must be valid JSON: {exc}&quot;) from exc</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
+| 57 | <code>    if not isinstance(value, dict):</code> | Branches behavior based on configuration, input, or response shape. |
+| 58 | <code>        raise ValueError(f&quot;{name} must be a JSON object.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
+| 59 | <code>    return value</code> | Returns the computed value to the caller. |
+| 60 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 61 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 62 | <code>def render_arguments(message: str, template: str, defaults: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 63 | <code>    &quot;&quot;&quot;Render the prompt into the MCP argument template and merge defaults.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
 | 64 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 65 | <code>    body {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 66 | <code>      margin: 0;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 67 | <code>      min-height: 100vh;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 68 | <code>      font-family: &quot;Segoe UI&quot;, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 69 | <code>      color: var(--text);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 70 | <code>      background:</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 71 | <code>        radial-gradient(circle at 12% 18%, rgba(98,100,167,.22), transparent 28%),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 72 | <code>        radial-gradient(circle at 82% 6%, rgba(0,120,212,.2), transparent 26%),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 73 | <code>        linear-gradient(135deg, #fbfbfd 0%, #eef3fb 50%, #f7f2fb 100%);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 74 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 75 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 76 | <code>    .shell {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 77 | <code>      width: min(1180px, calc(100vw - 40px));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 78 | <code>      margin: 0 auto;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 79 | <code>      padding: 34px 0 28px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 80 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 81 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 82 | <code>    header {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 83 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 84 | <code>      align-items: center;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 85 | <code>      justify-content: space-between;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 86 | <code>      gap: 20px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 87 | <code>      margin-bottom: 24px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 88 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 89 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 90 | <code>    .brand {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 91 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 92 | <code>      align-items: center;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 93 | <code>      gap: 14px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 94 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 95 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 96 | <code>    .logo {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 97 | <code>      width: 46px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 98 | <code>      height: 46px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 99 | <code>      border-radius: 13px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 100 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 101 | <code>      place-items: center;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 102 | <code>      color: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 103 | <code>      font-weight: 800;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 104 | <code>      letter-spacing: -.04em;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 105 | <code>      background: linear-gradient(135deg, var(--brand), var(--brand2));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 106 | <code>      box-shadow: 0 12px 28px rgba(98,100,167,.3);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 107 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 108 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 109 | <code>    h1 {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 110 | <code>      margin: 0;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 111 | <code>      font-size: 28px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 112 | <code>      letter-spacing: -.04em;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 113 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 114 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 115 | <code>    .subtitle {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 116 | <code>      margin-top: 3px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 117 | <code>      color: var(--muted);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 118 | <code>      font-size: 14px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 119 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 120 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 121 | <code>    .pill {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 122 | <code>      display: inline-flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 123 | <code>      align-items: center;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 124 | <code>      gap: 8px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 125 | <code>      padding: 9px 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 126 | <code>      border: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 127 | <code>      border-radius: 999px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 128 | <code>      background: rgba(255,255,255,.7);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 129 | <code>      color: #242424;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 130 | <code>      font-size: 13px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 131 | <code>      box-shadow: 0 8px 24px rgba(0,0,0,.06);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 132 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 133 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 134 | <code>    .dot {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 135 | <code>      width: 9px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 136 | <code>      height: 9px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 137 | <code>      border-radius: 999px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 138 | <code>      background: #13a10e;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 139 | <code>      box-shadow: 0 0 0 5px rgba(19,161,14,.12);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 140 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 141 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 142 | <code>    .hero {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 143 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 144 | <code>      grid-template-columns: 1.05fr .95fr;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 145 | <code>      gap: 22px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 146 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 147 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 148 | <code>    .card {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 149 | <code>      border: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 150 | <code>      border-radius: var(--radius);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 151 | <code>      background: var(--panel);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 152 | <code>      backdrop-filter: blur(18px);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 153 | <code>      box-shadow: var(--shadow);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 154 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 155 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 156 | <code>    .conversation {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 157 | <code>      min-height: 650px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 158 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 159 | <code>      flex-direction: column;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 160 | <code>      overflow: hidden;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 161 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 65 | <code>    rendered = template.replace(&quot;{message}&quot;, message)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 66 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 67 | <code>        args = json.loads(rendered)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 68 | <code>    except json.JSONDecodeError as exc:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 69 | <code>        raise ValueError(f&quot;MCP_TOOL_ARGUMENT_TEMPLATE rendered invalid JSON: {exc}&quot;) from exc</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
+| 70 | <code>    if not isinstance(args, dict):</code> | Branches behavior based on configuration, input, or response shape. |
+| 71 | <code>        raise ValueError(&quot;MCP_TOOL_ARGUMENT_TEMPLATE must render to a JSON object.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
+| 72 | <code>    return {**args, **defaults}</code> | Returns the computed value to the caller. |
+| 73 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 74 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 75 | <code>def select_tool(prompt: str) -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 76 | <code>    &quot;&quot;&quot;Choose the Gigamon MCP tool that best matches the typed prompt.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 77 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 78 | <code>    configured = os.getenv(&quot;SENTINEL_MCP_TOOL&quot;, &quot;&quot;).strip()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 79 | <code>    prompt_lower = prompt.lower()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 80 | <code>    for keywords, tool_name in TOOL_ROUTES:</code> | Iterates over a collection or stream to process multiple values. |
+| 81 | <code>        if any(keyword in prompt_lower for keyword in keywords):</code> | Branches behavior based on configuration, input, or response shape. |
+| 82 | <code>            return tool_name</code> | Returns the computed value to the caller. |
+| 83 | <code>    return configured or GIGAMON_TOOLS[&quot;visibility&quot;]</code> | Returns the computed value to the caller. |
+| 84 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 85 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 86 | <code>def create_mcp_client() -&gt; SentinelMCPClient | MockSentinelMCPClient:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 87 | <code>    &quot;&quot;&quot;Create either the real Sentinel MCP client or the offline mock client.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 88 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 89 | <code>    mode = os.getenv(&quot;MCP_DEMO_MODE&quot;, &quot;mock&quot;).strip().lower()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 90 | <code>    if mode == &quot;real&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
+| 91 | <code>        return SentinelMCPClient(</code> | Returns the computed value to the caller. |
+| 92 | <code>            collection=os.getenv(&quot;SENTINEL_MCP_COLLECTION&quot;),</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 93 | <code>            server_url=os.getenv(&quot;SENTINEL_MCP_SERVER_URL&quot;),</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 94 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 95 | <code>    if mode == &quot;mock&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
+| 96 | <code>        return MockSentinelMCPClient()</code> | Returns the computed value to the caller. |
+| 97 | <code>    raise ValueError(&quot;MCP_DEMO_MODE must be &#x27;mock&#x27; or &#x27;real&#x27;.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
+| 98 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 99 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 100 | <code>def dataset_rows(result: MCPToolResult) -&gt; list[dict[str, Any]]:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 101 | <code>    &quot;&quot;&quot;Extract Kusto PrimaryResult rows from the raw MCP text content.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 102 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 103 | <code>    rows: list[dict[str, Any]] = []</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 104 | <code>    for item in result.content:</code> | Iterates over a collection or stream to process multiple values. |
+| 105 | <code>        if item.get(&quot;type&quot;) != &quot;text&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
+| 106 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 107 | <code>        text = str(item.get(&quot;text&quot;, &quot;&quot;))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 108 | <code>        try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 109 | <code>            frames = json.loads(text)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 110 | <code>        except json.JSONDecodeError:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 111 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 112 | <code>        if not isinstance(frames, list):</code> | Branches behavior based on configuration, input, or response shape. |
+| 113 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 114 | <code>        primary = next(</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 115 | <code>            (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 116 | <code>                frame</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 117 | <code>                for frame in frames</code> | Iterates over a collection or stream to process multiple values. |
+| 118 | <code>                if isinstance(frame, dict)</code> | Branches behavior based on configuration, input, or response shape. |
+| 119 | <code>                and frame.get(&quot;FrameType&quot;) == &quot;DataTable&quot;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 120 | <code>                and frame.get(&quot;TableKind&quot;) == &quot;PrimaryResult&quot;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 121 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 122 | <code>            None,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 123 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 124 | <code>        if not primary:</code> | Branches behavior based on configuration, input, or response shape. |
+| 125 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 126 | <code>        columns = [column.get(&quot;ColumnName&quot;, &quot;&quot;) for column in primary.get(&quot;Columns&quot;, [])]</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 127 | <code>        for row in primary.get(&quot;Rows&quot;, []):</code> | Iterates over a collection or stream to process multiple values. |
+| 128 | <code>            rows.append({columns[index]: value for index, value in enumerate(row) if index &lt; len(columns)})</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 129 | <code>    return rows</code> | Returns the computed value to the caller. |
+| 130 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 131 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 132 | <code>def summarize(prompt: str, tool_name: str, rows: list[dict[str, Any]], raw_text: str) -&gt; str:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 133 | <code>    &quot;&quot;&quot;Create a presenter-friendly summary from the first returned row.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 134 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 135 | <code>    if not rows:</code> | Branches behavior based on configuration, input, or response shape. |
+| 136 | <code>        return raw_text or f&quot;{tool_name} completed for: {prompt}&quot;</code> | Returns the computed value to the caller. |
+| 137 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 138 | <code>    row = rows[0]</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 139 | <code>    if tool_name == GIGAMON_TOOLS[&quot;lateral&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
+| 140 | <code>        return (</code> | Returns the computed value to the caller. |
+| 141 | <code>            f&quot;Lateral movement triage found {row.get(&#x27;FlowCount&#x27;)} candidate flows on destination port &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 142 | <code>            f&quot;{row.get(&#x27;dst_port&#x27;)}, totaling {row.get(&#x27;TotalBytes&#x27;)} bytes. Sources: {row.get(&#x27;Sources&#x27;)}. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 143 | <code>            f&quot;Destinations: {row.get(&#x27;Destinations&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 144 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 145 | <code>    if tool_name == GIGAMON_TOOLS[&quot;dns&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
+| 146 | <code>        return (</code> | Returns the computed value to the caller. |
+| 147 | <code>            f&quot;DNS anomaly hunt found {row.get(&#x27;Queries&#x27;)} {row.get(&#x27;dns_query_type&#x27;)} queries, &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 148 | <code>            f&quot;with {row.get(&#x27;FailedQueries&#x27;)} failed and {row.get(&#x27;SlowQueries&#x27;)} slow responses. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 149 | <code>            f&quot;Queries: {row.get(&#x27;QueryNames&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 150 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 151 | <code>    if tool_name == GIGAMON_TOOLS[&quot;tls&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
+| 152 | <code>        return (</code> | Returns the computed value to the caller. |
+| 153 | <code>            f&quot;TLS risk summary found {row.get(&#x27;Sessions&#x27;)} sessions for {row.get(&#x27;ProtocolVersion&#x27;)}. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 154 | <code>            f&quot;Weak protocol sessions: {row.get(&#x27;WeakProtocol&#x27;)}; weak key observations: {row.get(&#x27;WeakKey&#x27;)}; &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 155 | <code>            f&quot;expiring soon: {row.get(&#x27;ExpiringSoon&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 156 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 157 | <code>    if tool_name == GIGAMON_TOOLS[&quot;talkers&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
+| 158 | <code>        return (</code> | Returns the computed value to the caller. |
+| 159 | <code>            f&quot;Top talkers shows {row.get(&#x27;app_name&#x27;)} / {row.get(&#x27;app_family&#x27;)} over {row.get(&#x27;protocol&#x27;)} &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 160 | <code>            f&quot;with {row.get(&#x27;Flows&#x27;)} flows and {row.get(&#x27;Bytes&#x27;)} bytes. Top sources: {row.get(&#x27;TopSources&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 161 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 162 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 163 | <code>    .chat-head {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 164 | <code>      padding: 22px 24px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 165 | <code>      border-bottom: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 166 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 167 | <code>      justify-content: space-between;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 168 | <code>      gap: 16px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 169 | <code>      align-items: flex-start;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 170 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 171 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 172 | <code>    .chat-title {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 173 | <code>      font-weight: 700;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 174 | <code>      font-size: 16px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 175 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 176 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 177 | <code>    .tool-name {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 178 | <code>      color: var(--muted);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 179 | <code>      font-size: 13px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 180 | <code>      margin-top: 3px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 181 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 163 | <code>    return (</code> | Returns the computed value to the caller. |
+| 164 | <code>        f&quot;Visibility posture found {row.get(&#x27;Events&#x27;)} Gigamon events across &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 165 | <code>        f&quot;{row.get(&#x27;UniqueSources&#x27;)} sources and {row.get(&#x27;UniqueDestinations&#x27;)} destinations, &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 166 | <code>        f&quot;totaling {row.get(&#x27;TotalBytes&#x27;)} bytes. Apps: {row.get(&#x27;Apps&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 167 | <code>    )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 168 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 169 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 170 | <code>async def run_prompt(prompt: str, *, show_raw: bool) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 171 | <code>    &quot;&quot;&quot;Call the selected MCP tool once and print the result.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 172 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 173 | <code>    tool_name = select_tool(prompt)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 174 | <code>    template = os.getenv(&quot;MCP_TOOL_ARGUMENT_TEMPLATE&quot;, &#x27;{&quot;query&quot;:&quot;{message}&quot;}&#x27;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 175 | <code>    defaults = parse_json_env(&quot;MCP_DEFAULT_ARGUMENTS&quot;, {})</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 176 | <code>    arguments = render_arguments(prompt, template, defaults)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 177 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 178 | <code>    print(f&quot;\nPrompt: {prompt}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 179 | <code>    print(f&quot;Tool:   {tool_name}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 180 | <code>    print(f&quot;Args:   {json.dumps(arguments, sort_keys=True)}&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 181 | <code>    print(&quot;Status: calling Sentinel MCP...\n&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 | 182 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 183 | <code>    .messages {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 184 | <code>      flex: 1;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 185 | <code>      padding: 22px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 186 | <code>      overflow: auto;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 187 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 188 | <code>      flex-direction: column;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 189 | <code>      gap: 14px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 190 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 191 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 192 | <code>    .msg {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 193 | <code>      max-width: 88%;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 194 | <code>      padding: 14px 16px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 195 | <code>      border-radius: 18px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 196 | <code>      line-height: 1.42;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 197 | <code>      white-space: pre-wrap;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 198 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 199 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 200 | <code>    .msg.user {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 201 | <code>      align-self: flex-end;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 202 | <code>      color: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 203 | <code>      background: linear-gradient(135deg, var(--brand), var(--brand2));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 204 | <code>      border-bottom-right-radius: 6px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 205 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 206 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 207 | <code>    .msg.assistant {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 208 | <code>      align-self: flex-start;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 209 | <code>      background: #fff;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 210 | <code>      border: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 211 | <code>      border-bottom-left-radius: 6px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 212 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 213 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 214 | <code>    .composer {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 215 | <code>      padding: 18px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 216 | <code>      border-top: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 217 | <code>      background: rgba(255,255,255,.56);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 218 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 219 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 220 | <code>    form {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 221 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 222 | <code>      gap: 10px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 223 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 224 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 225 | <code>    input {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 226 | <code>      flex: 1;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 227 | <code>      border: 1px solid rgba(0,0,0,.13);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 228 | <code>      border-radius: 15px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 229 | <code>      padding: 14px 15px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 230 | <code>      font: inherit;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 231 | <code>      outline: none;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 232 | <code>      background: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 233 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 234 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 235 | <code>    input:focus {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 236 | <code>      border-color: var(--brand2);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 237 | <code>      box-shadow: 0 0 0 3px rgba(0,120,212,.14);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 238 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 239 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 240 | <code>    button {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 241 | <code>      border: 0;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 242 | <code>      border-radius: 15px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 243 | <code>      padding: 0 20px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 244 | <code>      color: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 245 | <code>      font: inherit;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 246 | <code>      font-weight: 700;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 247 | <code>      cursor: pointer;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 248 | <code>      background: linear-gradient(135deg, var(--brand), var(--brand2));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 249 | <code>      box-shadow: 0 12px 26px rgba(0,120,212,.22);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 250 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 251 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 252 | <code>    button:disabled {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 253 | <code>      cursor: wait;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 254 | <code>      filter: grayscale(.25);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 255 | <code>      opacity: .7;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 256 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 257 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 258 | <code>    .side {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 259 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 260 | <code>      gap: 18px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 261 | <code>      align-content: start;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 262 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 263 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 264 | <code>    .panel {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 265 | <code>      padding: 22px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 266 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 267 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 268 | <code>    .panel h2 {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 269 | <code>      margin: 0 0 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 270 | <code>      font-size: 18px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 271 | <code>      letter-spacing: -.03em;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 272 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 273 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 274 | <code>    .value-grid {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 275 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 276 | <code>      grid-template-columns: repeat(2, minmax(0, 1fr));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 277 | <code>      gap: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 278 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 279 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 280 | <code>    .metric {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 281 | <code>      border: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 282 | <code>      border-radius: 16px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 283 | <code>      padding: 15px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 284 | <code>      background: rgba(255,255,255,.7);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 285 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 286 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 287 | <code>    .metric .label {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 288 | <code>      color: var(--muted);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 289 | <code>      font-size: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 290 | <code>      text-transform: uppercase;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 291 | <code>      letter-spacing: .08em;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 292 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 293 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 294 | <code>    .metric .value {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 295 | <code>      margin-top: 7px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 296 | <code>      font-weight: 800;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 297 | <code>      font-size: 24px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 298 | <code>      letter-spacing: -.04em;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 299 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 300 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 301 | <code>    .tags {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 302 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 303 | <code>      flex-wrap: wrap;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 304 | <code>      gap: 8px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 305 | <code>      margin-top: 10px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 306 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 307 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 308 | <code>    .tag {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 309 | <code>      padding: 7px 10px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 310 | <code>      border-radius: 999px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 311 | <code>      background: rgba(98,100,167,.1);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 312 | <code>      color: #464775;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 313 | <code>      font-size: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 314 | <code>      font-weight: 650;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 315 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 316 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 317 | <code>    .steps {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 318 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 319 | <code>      gap: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 320 | <code>      color: var(--muted);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 321 | <code>      font-size: 14px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 322 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 323 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 324 | <code>    .step {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 325 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 326 | <code>      grid-template-columns: 28px 1fr;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 327 | <code>      gap: 10px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 328 | <code>      align-items: start;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 329 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 330 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 331 | <code>    .num {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 332 | <code>      width: 28px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 333 | <code>      height: 28px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 334 | <code>      border-radius: 10px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 335 | <code>      display: grid;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 336 | <code>      place-items: center;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 337 | <code>      color: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 338 | <code>      font-size: 13px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 339 | <code>      font-weight: 800;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 340 | <code>      background: linear-gradient(135deg, var(--brand), var(--brand2));</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 341 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 342 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 343 | <code>    .examples {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 344 | <code>      display: flex;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 345 | <code>      flex-wrap: wrap;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 346 | <code>      gap: 8px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 347 | <code>      margin-top: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 348 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 349 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 350 | <code>    .example {</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 351 | <code>      border: 1px solid var(--line);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 352 | <code>      border-radius: 999px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 353 | <code>      padding: 8px 11px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 354 | <code>      background: white;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 355 | <code>      cursor: pointer;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 356 | <code>      color: #323130;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 357 | <code>      font-size: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 358 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 359 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 360 | <code>    pre {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 361 | <code>      margin: 10px 0 0;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 362 | <code>      overflow: auto;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 363 | <code>      white-space: pre-wrap;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 364 | <code>      font-size: 12px;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 365 | <code>      line-height: 1.35;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 366 | <code>      color: #242424;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 367 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 368 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 369 | <code>    @media (max-width: 920px) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 370 | <code>      .hero { grid-template-columns: 1fr; }</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 371 | <code>      header { align-items: flex-start; flex-direction: column; }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 372 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 373 | <code>  &lt;/style&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 374 | <code>&lt;/head&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 375 | <code>&lt;body&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 376 | <code>  &lt;main class=&quot;shell&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 377 | <code>    &lt;header&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 378 | <code>      &lt;div class=&quot;brand&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 379 | <code>        &lt;div class=&quot;logo&quot;&gt;G&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 380 | <code>        &lt;div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 381 | <code>          &lt;h1&gt;Gigamon Visibility Copilot&lt;/h1&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 382 | <code>          &lt;div class=&quot;subtitle&quot;&gt;ISV custom MCP tool demo on Microsoft Sentinel sample data&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 383 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 384 | <code>      &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 385 | <code>      &lt;div class=&quot;pill&quot;&gt;&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;&lt;span id=&quot;mode&quot;&gt;Connecting to Sentinel MCP&lt;/span&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 386 | <code>    &lt;/header&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 387 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 388 | <code>    &lt;section class=&quot;hero&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 389 | <code>      &lt;div class=&quot;card conversation&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 390 | <code>        &lt;div class=&quot;chat-head&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 391 | <code>          &lt;div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 392 | <code>            &lt;div class=&quot;chat-title&quot;&gt;Ask a security question&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 393 | <code>            &lt;div class=&quot;tool-name&quot; id=&quot;toolName&quot;&gt;Loading tool...&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 394 | <code>          &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 395 | <code>          &lt;div class=&quot;pill&quot;&gt;local app -&gt; MCP -&gt; Sentinel&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 396 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 397 | <code>          &lt;div class=&quot;messages&quot; id=&quot;messages&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 398 | <code>          &lt;div class=&quot;msg assistant&quot;&gt;Hi, I am wired to a real Gigamon Sentinel MCP collection. Ask about visibility posture, lateral movement, DNS anomalies, TLS risk, or top talkers.&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 399 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 400 | <code>        &lt;div class=&quot;composer&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 401 | <code>          &lt;form id=&quot;queryForm&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 402 | <code>            &lt;input id=&quot;prompt&quot; autocomplete=&quot;off&quot; value=&quot;Summarize Gigamon visibility posture&quot; /&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 403 | <code>            &lt;button id=&quot;sendButton&quot; type=&quot;submit&quot;&gt;Ask&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 404 | <code>          &lt;/form&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 405 | <code>          &lt;div class=&quot;examples&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 406 | <code>            &lt;button class=&quot;example&quot; type=&quot;button&quot;&gt;Summarize Gigamon visibility posture&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 407 | <code>            &lt;button class=&quot;example&quot; type=&quot;button&quot;&gt;Show possible lateral movement&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 408 | <code>            &lt;button class=&quot;example&quot; type=&quot;button&quot;&gt;Hunt DNS anomalies&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 409 | <code>            &lt;button class=&quot;example&quot; type=&quot;button&quot;&gt;Summarize TLS risk&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 410 | <code>            &lt;button class=&quot;example&quot; type=&quot;button&quot;&gt;Show top talkers by app&lt;/button&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 411 | <code>          &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 412 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 413 | <code>      &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 414 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 415 | <code>      &lt;aside class=&quot;side&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 416 | <code>        &lt;div class=&quot;card panel&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 417 | <code>          &lt;h2&gt;Live result cards&lt;/h2&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 418 | <code>          &lt;div class=&quot;value-grid&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 419 | <code>            &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;label&quot; id=&quot;metricLabel1&quot;&gt;Metric 1&lt;/div&gt;&lt;div class=&quot;value&quot; id=&quot;metricValue1&quot;&gt;--&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 420 | <code>            &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;label&quot; id=&quot;metricLabel2&quot;&gt;Metric 2&lt;/div&gt;&lt;div class=&quot;value&quot; id=&quot;metricValue2&quot;&gt;--&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 421 | <code>            &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;label&quot; id=&quot;metricLabel3&quot;&gt;Metric 3&lt;/div&gt;&lt;div class=&quot;value&quot; id=&quot;metricValue3&quot;&gt;--&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 422 | <code>            &lt;div class=&quot;metric&quot;&gt;&lt;div class=&quot;label&quot; id=&quot;metricLabel4&quot;&gt;Metric 4&lt;/div&gt;&lt;div class=&quot;value&quot; id=&quot;metricValue4&quot;&gt;--&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 423 | <code>          &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 424 | <code>          &lt;div class=&quot;tags&quot; id=&quot;tags&quot;&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 425 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 426 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 427 | <code>        &lt;div class=&quot;card panel&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 428 | <code>          &lt;h2&gt;What this proves&lt;/h2&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 429 | <code>          &lt;div class=&quot;steps&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 430 | <code>            &lt;div class=&quot;step&quot;&gt;&lt;div class=&quot;num&quot;&gt;1&lt;/div&gt;&lt;div&gt;ISV publishes a focused Sentinel MCP tool for a high-value question.&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 431 | <code>            &lt;div class=&quot;step&quot;&gt;&lt;div class=&quot;num&quot;&gt;2&lt;/div&gt;&lt;div&gt;A local agent experience calls the tool with a normal prompt.&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 432 | <code>            &lt;div class=&quot;step&quot;&gt;&lt;div class=&quot;num&quot;&gt;3&lt;/div&gt;&lt;div&gt;The response comes from real data in the Microsoft security ecosystem.&lt;/div&gt;&lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 433 | <code>          &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 434 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 435 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 436 | <code>        &lt;div class=&quot;card panel&quot;&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 437 | <code>          &lt;h2&gt;Raw MCP response&lt;/h2&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 438 | <code>          &lt;pre id=&quot;raw&quot;&gt;Run a prompt to see the formatted MCP tool output.&lt;/pre&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 439 | <code>        &lt;/div&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 440 | <code>      &lt;/aside&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 441 | <code>    &lt;/section&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 442 | <code>  &lt;/main&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 443 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 444 | <code>  &lt;script&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 445 | <code>    const messages = document.getElementById(&quot;messages&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 446 | <code>    const promptInput = document.getElementById(&quot;prompt&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 447 | <code>    const sendButton = document.getElementById(&quot;sendButton&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 448 | <code>    const form = document.getElementById(&quot;queryForm&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 449 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 450 | <code>    function addMessage(role, text) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 451 | <code>      const div = document.createElement(&quot;div&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 452 | <code>      div.className = `msg ${role}`;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 453 | <code>      div.textContent = text;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 454 | <code>      messages.appendChild(div);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 455 | <code>      messages.scrollTop = messages.scrollHeight;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 456 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 457 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 458 | <code>    function asArray(value) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 459 | <code>      if (Array.isArray(value)) return value;</code> | Branches behavior based on configuration, input, or response shape. |
-| 460 | <code>      if (typeof value !== &quot;string&quot;) return [];</code> | Branches behavior based on configuration, input, or response shape. |
-| 461 | <code>      const cleaned = value.trim();</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 462 | <code>      if (!cleaned.startsWith(&quot;[&quot;) || !cleaned.endsWith(&quot;]&quot;)) return cleaned ? [cleaned] : [];</code> | Branches behavior based on configuration, input, or response shape. |
-| 463 | <code>      try {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 464 | <code>        return JSON.parse(cleaned.replaceAll(&quot;&#x27;&quot;, &#x27;&quot;&#x27;));</code> | Returns the computed value to the caller. |
-| 465 | <code>      } catch {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 466 | <code>        return cleaned.slice(1, -1).split(&quot;,&quot;).map(v =&gt; v.trim().replace(/^[&#x27;&quot;]|[&#x27;&quot;]$/g, &quot;&quot;)).filter(Boolean);</code> | Returns the computed value to the caller. |
-| 467 | <code>      }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 468 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 469 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 470 | <code>    function updateCards(row) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 471 | <code>      if (!row) return;</code> | Branches behavior based on configuration, input, or response shape. |
-| 472 | <code>      const preferred = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 473 | <code>        &quot;Events&quot;, &quot;FlowCount&quot;, &quot;Queries&quot;, &quot;Sessions&quot;, &quot;Flows&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 474 | <code>        &quot;TotalBytes&quot;, &quot;Bytes&quot;, &quot;UniqueSources&quot;, &quot;UniqueDestinations&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 475 | <code>        &quot;FailedQueries&quot;, &quot;SlowQueries&quot;, &quot;WeakProtocol&quot;, &quot;WeakKey&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 476 | <code>      ];</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 477 | <code>      const keys = preferred.filter(key =&gt; row[key] !== undefined).slice(0, 4);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 478 | <code>      Object.keys(row).forEach(key =&gt; {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 479 | <code>        if (keys.length &lt; 4 &amp;&amp; !keys.includes(key) &amp;&amp; !Array.isArray(row[key])) keys.push(key);</code> | Branches behavior based on configuration, input, or response shape. |
-| 480 | <code>      });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 481 | <code>      for (let index = 0; index &lt; 4; index++) {</code> | Iterates over a collection or stream to process multiple values. |
-| 482 | <code>        const key = keys[index] || `Metric ${index + 1}`;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 483 | <code>        document.getElementById(`metricLabel${index + 1}`).textContent = key;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 484 | <code>        document.getElementById(`metricValue${index + 1}`).textContent = row[key] ?? &quot;--&quot;;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 485 | <code>      }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 486 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 487 | <code>      const tags = document.getElementById(&quot;tags&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 488 | <code>      tags.replaceChildren();</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 489 | <code>      const tagValues = [</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 490 | <code>        ...asArray(row.Protocols),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 491 | <code>        ...asArray(row.Apps),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 492 | <code>        ...asArray(row.AppFamilies),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 493 | <code>        ...asArray(row.Sources),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 494 | <code>        ...asArray(row.Destinations),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 495 | <code>        ...asArray(row.QueryNames),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 496 | <code>        ...asArray(row.ReplyCodes),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 497 | <code>        ...asArray(row.CommonNames),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 498 | <code>        ...asArray(row.Issuers),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 499 | <code>        ...asArray(row.TopSources),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 500 | <code>        ...asArray(row.TopDestinations),</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 501 | <code>      ].slice(0, 10);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 502 | <code>      tagValues.forEach(value =&gt; {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 503 | <code>        const tag = document.createElement(&quot;span&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 504 | <code>        tag.className = &quot;tag&quot;;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 505 | <code>        tag.textContent = value;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 506 | <code>        tags.appendChild(tag);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 507 | <code>      });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 508 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 509 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 510 | <code>    async function loadStatus() {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 511 | <code>      const res = await fetch(&quot;/api/status&quot;);</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 512 | <code>      const data = await res.json();</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 513 | <code>      document.getElementById(&quot;mode&quot;).textContent = `${data.mode.toUpperCase()} mode`;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 514 | <code>      document.getElementById(&quot;toolName&quot;).textContent = `Tool: ${data.tool}`;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 515 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 516 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 517 | <code>    async function ask(prompt) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 518 | <code>      addMessage(&quot;user&quot;, prompt);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 519 | <code>      sendButton.disabled = true;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 520 | <code>      sendButton.textContent = &quot;Calling...&quot;;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 521 | <code>      try {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 522 | <code>        const res = await fetch(&quot;/api/query&quot;, {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 523 | <code>          method: &quot;POST&quot;,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 524 | <code>          headers: {&quot;Content-Type&quot;: &quot;application/json&quot;},</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 525 | <code>          body: JSON.stringify({prompt})</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 526 | <code>        });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 527 | <code>        const data = await res.json();</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 528 | <code>        if (!res.ok) throw new Error(data.error || &quot;Request failed&quot;);</code> | Branches behavior based on configuration, input, or response shape. |
-| 529 | <code>        addMessage(&quot;assistant&quot;, data.summary);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 530 | <code>        document.getElementById(&quot;toolName&quot;).textContent = `Tool: ${data.tool}`;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 531 | <code>        document.getElementById(&quot;raw&quot;).textContent = data.rawText || &quot;&quot;;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 532 | <code>        updateCards(data.rows &amp;&amp; data.rows[0]);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 533 | <code>      } catch (error) {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 534 | <code>        addMessage(&quot;assistant&quot;, `I could not call the MCP tool: ${error.message}`);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 535 | <code>      } finally {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 536 | <code>        sendButton.disabled = false;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 537 | <code>        sendButton.textContent = &quot;Ask&quot;;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 538 | <code>      }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 539 | <code>    }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 540 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 541 | <code>    form.addEventListener(&quot;submit&quot;, event =&gt; {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 542 | <code>      event.preventDefault();</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 543 | <code>      const prompt = promptInput.value.trim();</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 544 | <code>      if (prompt) ask(prompt);</code> | Branches behavior based on configuration, input, or response shape. |
-| 545 | <code>    });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 546 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 547 | <code>    document.querySelectorAll(&quot;.example&quot;).forEach(button =&gt; {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 548 | <code>      button.addEventListener(&quot;click&quot;, () =&gt; {</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 549 | <code>        promptInput.value = button.textContent;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 550 | <code>        ask(button.textContent);</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 551 | <code>      });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 552 | <code>    });</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 553 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 554 | <code>    loadStatus().then(() =&gt; ask(promptInput.value));</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 555 | <code>  &lt;/script&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 556 | <code>&lt;/body&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 557 | <code>&lt;/html&gt;</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 558 | <code>&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 559 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 560 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 561 | <code>def parse_json_env(name: str, default: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 562 | <code>    &quot;&quot;&quot;Read an environment variable that must contain a JSON object.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 563 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 564 | <code>    raw = os.getenv(name)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 565 | <code>    if not raw:</code> | Branches behavior based on configuration, input, or response shape. |
-| 566 | <code>        return default</code> | Returns the computed value to the caller. |
-| 567 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 568 | <code>        value = json.loads(raw)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 569 | <code>    except json.JSONDecodeError as exc:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 570 | <code>        raise ValueError(f&quot;{name} must be valid JSON: {exc}&quot;) from exc</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
-| 571 | <code>    if not isinstance(value, dict):</code> | Branches behavior based on configuration, input, or response shape. |
-| 572 | <code>        raise ValueError(f&quot;{name} must be a JSON object.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
-| 573 | <code>    return value</code> | Returns the computed value to the caller. |
-| 574 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 575 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 576 | <code>def render_arguments(message: str, template: str, defaults: dict[str, Any]) -&gt; dict[str, Any]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 577 | <code>    &quot;&quot;&quot;Render the MCP argument template and merge demo-wide defaults into it.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 578 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 579 | <code>    rendered = template.replace(&quot;{message}&quot;, message)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 580 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 581 | <code>        args = json.loads(rendered)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 582 | <code>    except json.JSONDecodeError as exc:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 583 | <code>        raise ValueError(f&quot;MCP_TOOL_ARGUMENT_TEMPLATE rendered invalid JSON: {exc}&quot;) from exc</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
-| 584 | <code>    if not isinstance(args, dict):</code> | Branches behavior based on configuration, input, or response shape. |
-| 585 | <code>        raise ValueError(&quot;MCP_TOOL_ARGUMENT_TEMPLATE must render to a JSON object.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
-| 586 | <code>    return {**args, **defaults}</code> | Returns the computed value to the caller. |
-| 587 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 588 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 589 | <code>def select_tool(prompt: str) -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 590 | <code>    &quot;&quot;&quot;Choose the best Gigamon MCP tool for a natural-language demo prompt.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 591 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 592 | <code>    configured = os.getenv(&quot;SENTINEL_MCP_TOOL&quot;, &quot;&quot;).strip()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 593 | <code>    prompt_lower = prompt.lower()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 594 | <code>    for keywords, tool_name in TOOL_ROUTES:</code> | Iterates over a collection or stream to process multiple values. |
-| 595 | <code>        if any(keyword in prompt_lower for keyword in keywords):</code> | Branches behavior based on configuration, input, or response shape. |
-| 596 | <code>            return tool_name</code> | Returns the computed value to the caller. |
-| 597 | <code>    return configured or GIGAMON_TOOLS[&quot;visibility&quot;]</code> | Returns the computed value to the caller. |
-| 598 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 599 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 600 | <code>def create_mcp_client() -&gt; SentinelMCPClient | MockSentinelMCPClient:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 601 | <code>    &quot;&quot;&quot;Create either the real Sentinel MCP client or the offline mock client.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 602 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 603 | <code>    mode = os.getenv(&quot;MCP_DEMO_MODE&quot;, &quot;mock&quot;).strip().lower()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 604 | <code>    if mode == &quot;real&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
-| 605 | <code>        return SentinelMCPClient(</code> | Returns the computed value to the caller. |
-| 606 | <code>            collection=os.getenv(&quot;SENTINEL_MCP_COLLECTION&quot;),</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 607 | <code>            server_url=os.getenv(&quot;SENTINEL_MCP_SERVER_URL&quot;),</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 608 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 609 | <code>    if mode == &quot;mock&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
-| 610 | <code>        return MockSentinelMCPClient()</code> | Returns the computed value to the caller. |
-| 611 | <code>    raise ValueError(&quot;MCP_DEMO_MODE must be &#x27;mock&#x27; or &#x27;real&#x27;.&quot;)</code> | Surfaces a configuration or runtime error instead of silently hiding it. |
-| 612 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 613 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 614 | <code>def dataset_rows(result: MCPToolResult) -&gt; list[dict[str, Any]]:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 615 | <code>    &quot;&quot;&quot;Extract Kusto PrimaryResult rows from the raw MCP text content.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 616 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 617 | <code>    rows: list[dict[str, Any]] = []</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 618 | <code>    for item in result.content:</code> | Iterates over a collection or stream to process multiple values. |
-| 619 | <code>        if item.get(&quot;type&quot;) != &quot;text&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
-| 620 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 621 | <code>        text = str(item.get(&quot;text&quot;, &quot;&quot;))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 622 | <code>        try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 623 | <code>            frames = json.loads(text)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 624 | <code>        except json.JSONDecodeError:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 625 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 626 | <code>        if not isinstance(frames, list):</code> | Branches behavior based on configuration, input, or response shape. |
-| 627 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 628 | <code>        primary = next(</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 629 | <code>            (</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 630 | <code>                frame</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 631 | <code>                for frame in frames</code> | Iterates over a collection or stream to process multiple values. |
-| 632 | <code>                if isinstance(frame, dict)</code> | Branches behavior based on configuration, input, or response shape. |
-| 633 | <code>                and frame.get(&quot;FrameType&quot;) == &quot;DataTable&quot;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 634 | <code>                and frame.get(&quot;TableKind&quot;) == &quot;PrimaryResult&quot;</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 635 | <code>            ),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 636 | <code>            None,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 637 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 638 | <code>        if not primary:</code> | Branches behavior based on configuration, input, or response shape. |
-| 639 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 640 | <code>        # Convert Kusto&#x27;s `[columns] + [row arrays]` shape into dictionaries so</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 641 | <code>        # the browser cards can address fields by name.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 642 | <code>        columns = [column.get(&quot;ColumnName&quot;, &quot;&quot;) for column in primary.get(&quot;Columns&quot;, [])]</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 643 | <code>        for row in primary.get(&quot;Rows&quot;, []):</code> | Iterates over a collection or stream to process multiple values. |
-| 644 | <code>            rows.append({columns[index]: value for index, value in enumerate(row) if index &lt; len(columns)})</code> | Defines the local browser UI markup or styling for the polished Edge demo. |
-| 645 | <code>    return rows</code> | Returns the computed value to the caller. |
-| 646 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 647 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 648 | <code>def summarize(prompt: str, tool_name: str, rows: list[dict[str, Any]], raw_text: str) -&gt; str:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 649 | <code>    &quot;&quot;&quot;Create a presenter-friendly one-paragraph summary from the first result row.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 650 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 651 | <code>    if not rows:</code> | Branches behavior based on configuration, input, or response shape. |
-| 652 | <code>        return raw_text or f&quot;{tool_name} completed for: {prompt}&quot;</code> | Returns the computed value to the caller. |
-| 653 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 654 | <code>    row = rows[0]</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 655 | <code>    if tool_name == GIGAMON_TOOLS[&quot;lateral&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
-| 656 | <code>        return (</code> | Returns the computed value to the caller. |
-| 657 | <code>            f&quot;Lateral movement triage found {row.get(&#x27;FlowCount&#x27;)} candidate flows on destination port &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 658 | <code>            f&quot;{row.get(&#x27;dst_port&#x27;)}, totaling {row.get(&#x27;TotalBytes&#x27;)} bytes. Sources: {row.get(&#x27;Sources&#x27;)}. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 659 | <code>            f&quot;Destinations: {row.get(&#x27;Destinations&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 660 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 661 | <code>    if tool_name == GIGAMON_TOOLS[&quot;dns&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
-| 662 | <code>        return (</code> | Returns the computed value to the caller. |
-| 663 | <code>            f&quot;DNS anomaly hunt found {row.get(&#x27;Queries&#x27;)} {row.get(&#x27;dns_query_type&#x27;)} queries, &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 664 | <code>            f&quot;with {row.get(&#x27;FailedQueries&#x27;)} failed and {row.get(&#x27;SlowQueries&#x27;)} slow responses. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 665 | <code>            f&quot;Queries: {row.get(&#x27;QueryNames&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 666 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 667 | <code>    if tool_name == GIGAMON_TOOLS[&quot;tls&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
-| 668 | <code>        return (</code> | Returns the computed value to the caller. |
-| 669 | <code>            f&quot;TLS risk summary found {row.get(&#x27;Sessions&#x27;)} sessions for {row.get(&#x27;ProtocolVersion&#x27;)}. &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 670 | <code>            f&quot;Weak protocol sessions: {row.get(&#x27;WeakProtocol&#x27;)}; weak key observations: {row.get(&#x27;WeakKey&#x27;)}; &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 671 | <code>            f&quot;expiring soon: {row.get(&#x27;ExpiringSoon&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 672 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 673 | <code>    if tool_name == GIGAMON_TOOLS[&quot;talkers&quot;]:</code> | Branches behavior based on configuration, input, or response shape. |
-| 674 | <code>        return (</code> | Returns the computed value to the caller. |
-| 675 | <code>            f&quot;Top talkers shows {row.get(&#x27;app_name&#x27;)} / {row.get(&#x27;app_family&#x27;)} over {row.get(&#x27;protocol&#x27;)} &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 676 | <code>            f&quot;with {row.get(&#x27;Flows&#x27;)} flows and {row.get(&#x27;Bytes&#x27;)} bytes. Top sources: {row.get(&#x27;TopSources&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 677 | <code>        )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 678 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 679 | <code>    return (</code> | Returns the computed value to the caller. |
-| 680 | <code>        f&quot;Visibility posture found {row.get(&#x27;Events&#x27;)} Gigamon events across &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 681 | <code>        f&quot;{row.get(&#x27;UniqueSources&#x27;)} sources and {row.get(&#x27;UniqueDestinations&#x27;)} destinations, &quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 682 | <code>        f&quot;totaling {row.get(&#x27;TotalBytes&#x27;)} bytes. Apps: {row.get(&#x27;Apps&#x27;)}.&quot;</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 683 | <code>    )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 684 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 685 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 686 | <code>async def index(_: web.Request) -&gt; web.Response:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 687 | <code>    &quot;&quot;&quot;Serve the single-page browser UI.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 688 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 689 | <code>    return web.Response(text=HTML, content_type=&quot;text/html&quot;)</code> | Returns the computed value to the caller. |
-| 690 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 691 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 692 | <code>async def status(_: web.Request) -&gt; web.Response:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 693 | <code>    &quot;&quot;&quot;Return current runtime configuration for the status pill in the UI.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 694 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 695 | <code>    return web.json_response(</code> | Returns the computed value to the caller. |
-| 696 | <code>        {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 697 | <code>            &quot;mode&quot;: os.getenv(&quot;MCP_DEMO_MODE&quot;, &quot;mock&quot;).strip().lower(),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 698 | <code>            &quot;collection&quot;: os.getenv(&quot;SENTINEL_MCP_COLLECTION&quot;, &quot;&quot;),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 699 | <code>            &quot;tool&quot;: os.getenv(&quot;SENTINEL_MCP_TOOL&quot;, GIGAMON_TOOLS[&quot;visibility&quot;]),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 700 | <code>            &quot;tools&quot;: list(GIGAMON_TOOLS.values()),</code> | Maps user-facing Gigamon investigation intents to concrete custom MCP tool names. |
-| 701 | <code>            &quot;workspaceId&quot;: parse_json_env(&quot;MCP_DEFAULT_ARGUMENTS&quot;, {}).get(&quot;workspaceId&quot;, &quot;&quot;),</code> | Passes the Log Analytics workspace customer ID required by Sentinel MCP tool execution. |
-| 702 | <code>        }</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 703 | <code>    )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 704 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 705 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 706 | <code>async def query(request: web.Request) -&gt; web.Response:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 707 | <code>    &quot;&quot;&quot;Handle a prompt, route it to an MCP tool, and return rows plus summary text.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 708 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 709 | <code>    payload = await request.json()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 710 | <code>    prompt = str(payload.get(&quot;prompt&quot;, &quot;&quot;)).strip()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 711 | <code>    if not prompt:</code> | Branches behavior based on configuration, input, or response shape. |
-| 712 | <code>        return web.json_response({&quot;error&quot;: &quot;Prompt is required.&quot;}, status=400)</code> | Returns the computed value to the caller. |
-| 713 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 714 | <code>    tool_name = select_tool(prompt)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 715 | <code>    if not tool_name:</code> | Branches behavior based on configuration, input, or response shape. |
-| 716 | <code>        return web.json_response({&quot;error&quot;: &quot;SENTINEL_MCP_TOOL is not configured.&quot;}, status=500)</code> | Returns the computed value to the caller. |
-| 717 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 718 | <code>    template = os.getenv(&quot;MCP_TOOL_ARGUMENT_TEMPLATE&quot;, &#x27;{&quot;query&quot;:&quot;{message}&quot;}&#x27;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 719 | <code>    defaults = parse_json_env(&quot;MCP_DEFAULT_ARGUMENTS&quot;, {})</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 720 | <code>    arguments = render_arguments(prompt, template, defaults)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 721 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 722 | <code>    client = create_mcp_client()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 723 | <code>    await client.connect()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 724 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 725 | <code>        # The custom tool performs the KQL query inside Sentinel/Log Analytics.</code> | Developer note explaining why the adjacent code exists or how it fits the demo. |
-| 726 | <code>        result = await client.call_tool(tool_name, arguments)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 727 | <code>    finally:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
-| 728 | <code>        await client.close()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 729 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 730 | <code>    rows = dataset_rows(result)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 731 | <code>    raw_text = result.text or json.dumps(result.content, indent=2)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 732 | <code>    return web.json_response(</code> | Returns the computed value to the caller. |
-| 733 | <code>        {</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 734 | <code>            &quot;prompt&quot;: prompt,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 735 | <code>            &quot;tool&quot;: tool_name,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 736 | <code>            &quot;arguments&quot;: arguments,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 737 | <code>            &quot;rows&quot;: rows,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 738 | <code>            &quot;rawText&quot;: raw_text,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 739 | <code>            &quot;summary&quot;: summarize(prompt, tool_name, rows, raw_text),</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 740 | <code>            &quot;isError&quot;: result.is_error,</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 741 | <code>        },</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 742 | <code>        status=500 if result.is_error else 200,</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 743 | <code>    )</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 744 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 745 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 746 | <code>def build_app() -&gt; web.Application:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 747 | <code>    &quot;&quot;&quot;Construct the aiohttp application and register browser/API routes.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 748 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 749 | <code>    load_dotenv()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 750 | <code>    app = web.Application()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 751 | <code>    app.router.add_get(&quot;/&quot;, index)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 752 | <code>    app.router.add_get(&quot;/api/status&quot;, status)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 753 | <code>    app.router.add_post(&quot;/api/query&quot;, query)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
-| 754 | <code>    return app</code> | Returns the computed value to the caller. |
-| 755 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 756 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 757 | <code>def main() -&gt; None:</code> | Defines a function; async functions are awaited by the web app or MCP client. |
-| 758 | <code>    &quot;&quot;&quot;Parse host/port flags and start the local web server.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
-| 759 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 760 | <code>    parser = argparse.ArgumentParser(description=&quot;Run the Gigamon Visibility Copilot web demo.&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 761 | <code>    parser.add_argument(&quot;--host&quot;, default=os.getenv(&quot;WEB_DEMO_HOST&quot;, &quot;127.0.0.1&quot;))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 762 | <code>    parser.add_argument(&quot;--port&quot;, type=int, default=int(os.getenv(&quot;WEB_DEMO_PORT&quot;, &quot;8765&quot;)))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 763 | <code>    args = parser.parse_args()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 764 | <code>    web.run_app(build_app(), host=args.host, port=args.port)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
-| 765 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 766 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
-| 767 | <code>if __name__ == &quot;__main__&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
-| 768 | <code>    main()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 183 | <code>    client = create_mcp_client()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 184 | <code>    await client.connect()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 185 | <code>    try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 186 | <code>        result = await client.call_tool(tool_name, arguments)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 187 | <code>    finally:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 188 | <code>        await client.close()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 189 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 190 | <code>    rows = dataset_rows(result)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 191 | <code>    raw_text = result.text or json.dumps(result.content, indent=2)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 192 | <code>    print(&quot;Summary&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 193 | <code>    print(&quot;-------&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 194 | <code>    print(summarize(prompt, tool_name, rows, raw_text))</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 195 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 196 | <code>    if show_raw:</code> | Branches behavior based on configuration, input, or response shape. |
+| 197 | <code>        print(&quot;\nRaw MCP result&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 198 | <code>        print(&quot;--------------&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 199 | <code>        print(raw_text)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 200 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 201 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 202 | <code>async def interactive_loop(show_raw: bool) -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 203 | <code>    &quot;&quot;&quot;Run the live terminal prompt loop until the presenter exits.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 204 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 205 | <code>    print(&quot;Gigamon Sentinel MCP Terminal Demo&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 206 | <code>    print(&quot;Type a prompt and press Enter. Type &#x27;examples&#x27; to list prompts or &#x27;quit&#x27; to exit.\n&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 207 | <code>    print(&quot;Examples:&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 208 | <code>    for prompt in EXAMPLE_PROMPTS:</code> | Iterates over a collection or stream to process multiple values. |
+| 209 | <code>        print(f&quot;  - {prompt}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 210 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 211 | <code>    while True:</code> | Iterates over a collection or stream to process multiple values. |
+| 212 | <code>        try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 213 | <code>            prompt = input(&quot;\ngigamon-mcp&gt; &quot;).strip()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 214 | <code>        except (EOFError, KeyboardInterrupt):</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 215 | <code>            print()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 216 | <code>            return</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 217 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 218 | <code>        if not prompt:</code> | Branches behavior based on configuration, input, or response shape. |
+| 219 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 220 | <code>        if prompt.lower() in {&quot;quit&quot;, &quot;exit&quot;, &quot;q&quot;}:</code> | Branches behavior based on configuration, input, or response shape. |
+| 221 | <code>            return</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 222 | <code>        if prompt.lower() == &quot;examples&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
+| 223 | <code>            for example in EXAMPLE_PROMPTS:</code> | Iterates over a collection or stream to process multiple values. |
+| 224 | <code>                print(f&quot;  - {example}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 225 | <code>            continue</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 226 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 227 | <code>        try:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 228 | <code>            await run_prompt(prompt, show_raw=show_raw)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 229 | <code>        except Exception as exc:</code> | Handles an operation that can fail while preserving clear error behavior or cleanup. |
+| 230 | <code>            print(f&quot;Error: {exc}&quot;)</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 231 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 232 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 233 | <code>def main() -&gt; None:</code> | Defines a function; async functions are awaited by the terminal demo or MCP client. |
+| 234 | <code>    &quot;&quot;&quot;Load configuration, parse flags, and start the terminal demo.&quot;&quot;&quot;</code> | Docstring text that explains the purpose of this module, class, or function. |
+| 235 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 236 | <code>    load_dotenv()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
+| 237 | <code>    parser = argparse.ArgumentParser(description=&quot;Run the Gigamon Sentinel MCP terminal demo.&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 238 | <code>    parser.add_argument(&quot;--prompt&quot;, help=&quot;Run one prompt and exit instead of starting the interactive loop.&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 239 | <code>    parser.add_argument(&quot;--show-raw&quot;, action=&quot;store_true&quot;, help=&quot;Print the formatted raw MCP/Kusto result.&quot;)</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 240 | <code>    args = parser.parse_args()</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 241 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 242 | <code>    if args.prompt:</code> | Branches behavior based on configuration, input, or response shape. |
+| 243 | <code>        asyncio.run(run_prompt(args.prompt, show_raw=args.show_raw))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 244 | <code>    else:</code> | Branches behavior based on configuration, input, or response shape. |
+| 245 | <code>        asyncio.run(interactive_loop(show_raw=args.show_raw))</code> | Assigns configuration, intermediate state, or response data used later in the flow. |
+| 246 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 247 | <code>&nbsp;</code> | Blank separator line that improves readability and groups related statements. |
+| 248 | <code>if __name__ == &quot;__main__&quot;:</code> | Branches behavior based on configuration, input, or response shape. |
+| 249 | <code>    main()</code> | Executable Python statement that supports the end-to-end Gigamon MCP demo flow. |
 
