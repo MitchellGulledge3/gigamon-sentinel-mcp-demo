@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+"""Publish the demo KQL files as Microsoft Sentinel custom MCP tools.
+
+This script is deliberately small and dependency-light so a Gigamon developer can
+copy it into another reference repo, inspect every HTTP payload, and understand
+exactly how KQL turns into an MCP tool. The script expects Azure CLI to already
+be signed in to a tenant/subscription that can manage Sentinel custom MCP tools.
+"""
+
 import argparse
 import json
 import pathlib
@@ -11,6 +19,8 @@ import urllib.request
 SENTINEL_RESOURCE_ID = "4500ebfb-89b6-4b14-a480-7f749797bfcd"
 API_BASE = "https://api.securityplatform.microsoft.com/aiprimitives/mcpToolCollections"
 
+# Friendly tool descriptions are stored next to the publisher so the KQL files
+# can stay focused on query logic while the MCP metadata stays easy to review.
 DESCRIPTIONS = {
     "Gigamon_Visibility_Posture_Summary": "Summarize Gigamon visibility posture across events, sources, destinations, protocols, apps, and bytes.",
     "Gigamon_Lateral_Movement_Triage": "Triage possible east-west lateral movement using SMB, RDP, SSH, interfaces, bytes, RTT, and source/destination pairs.",
@@ -21,6 +31,10 @@ DESCRIPTIONS = {
 
 
 def az_token() -> str:
+    """Return a Sentinel Platform Services bearer token from Azure CLI."""
+
+    # Azure CLI handles the interactive/device auth experience; the script only
+    # asks for the resource-specific token Sentinel custom MCP APIs require.
     completed = subprocess.run(
         [
             "az",
@@ -41,6 +55,8 @@ def az_token() -> str:
 
 
 def request(method: str, url: str, token: str, payload: dict) -> dict:
+    """Send one authenticated JSON request to the Sentinel MCP management API."""
+
     body = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         url,
@@ -55,11 +71,15 @@ def request(method: str, url: str, token: str, payload: dict) -> dict:
         with urllib.request.urlopen(req) as response:
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
+        # Keep the API response body in the exception so publishing failures are
+        # actionable without rerunning curl or opening a network trace.
         details = exc.read().decode("utf-8", errors="replace")
         raise RuntimeError(f"{method} {url} failed: HTTP {exc.code}: {details}") from exc
 
 
 def tool_payload(collection: str, workspace_id: str, query_path: pathlib.Path) -> dict:
+    """Build the custom MCP tool payload for a single `.kql` file."""
+
     name = query_path.stem
     return {
         "name": name,
@@ -68,7 +88,10 @@ def tool_payload(collection: str, workspace_id: str, query_path: pathlib.Path) -
         "collectionName": collection,
         "properties": {
             "mcpToolType": "Kqs",
+            # Sentinel executes this KQL when the MCP tool is called.
             "queryFormat": query_path.read_text().strip(),
+            # The custom MCP API expects a JSON-schema object here. The most
+            # important input for these tools is the Log Analytics workspace ID.
             "arguments": {
                 "type": "object",
                 "properties": {
@@ -85,6 +108,8 @@ def tool_payload(collection: str, workspace_id: str, query_path: pathlib.Path) -
 
 
 def main() -> int:
+    """Parse CLI flags, publish the collection, then publish every KQL tool."""
+
     parser = argparse.ArgumentParser(description="Publish Gigamon KQL files as Sentinel custom MCP tools.")
     parser.add_argument("--collection", default="Gigamon-Sentinel-MCP-Demo")
     parser.add_argument("--workspace-id", required=True)
@@ -100,6 +125,8 @@ def main() -> int:
     print(f"Publishing collection: {args.collection}")
     print(json.dumps(request("PUT", f"{API_BASE}/{args.collection}", token, collection_payload), indent=2))
 
+    # Each KQL filename becomes the MCP tool name, which keeps source control,
+    # Sentinel, and the browser prompt router aligned.
     for query_path in sorted(pathlib.Path(args.tools_dir).glob("*.kql")):
         payload = tool_payload(args.collection, args.workspace_id, query_path)
         print(f"\nPublishing tool: {payload['name']}")

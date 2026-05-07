@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+"""Minimal async client for Sentinel custom MCP collections.
+
+The browser demo only needs three MCP operations: initialize the session,
+discover tools, and call one selected tool. This module keeps that flow explicit
+so Gigamon developers can see the exact JSON-RPC messages and authentication
+choices instead of hiding them behind a large framework.
+"""
+
 import json
 import os
 from dataclasses import dataclass
@@ -16,6 +24,8 @@ CUSTOM_COLLECTION_BASE = "https://sentinel.microsoft.com/mcp/custom"
 
 @dataclass
 class MCPTool:
+    """Small local representation of a tool returned by `tools/list`."""
+
     name: str
     description: str = ""
     input_schema: dict[str, Any] | None = None
@@ -23,12 +33,16 @@ class MCPTool:
 
 @dataclass
 class MCPToolResult:
+    """Normalized result shape returned by `tools/call`."""
+
     tool_name: str
     content: list[dict[str, Any]]
     is_error: bool = False
 
     @property
     def text(self) -> str:
+        """Render text content into a display-friendly string for the web UI."""
+
         if not self.content:
             return ""
         parts: list[str] = []
@@ -63,6 +77,8 @@ def format_tool_text(text: str) -> str:
     if not primary:
         return text
 
+    # Kusto V2 responses carry column metadata separately from row arrays, so we
+    # rebuild name/value alignment before showing the result to a human.
     columns = [col.get("ColumnName", "") for col in primary.get("Columns", [])]
     rows = primary.get("Rows", [])
     if not columns:
@@ -86,10 +102,14 @@ def format_tool_text(text: str) -> str:
 
 
 class SentinelMCPError(RuntimeError):
+    """Raised when the MCP server or Sentinel management surface rejects a call."""
+
     pass
 
 
 class SentinelMCPClient:
+    """Async Sentinel MCP client used by the local browser demo."""
+
     def __init__(
         self,
         *,
@@ -97,6 +117,9 @@ class SentinelMCPClient:
         server_url: str | None = None,
         timeout_seconds: float = 120.0,
     ) -> None:
+        # The demo can use either a collection name or a full server URL. The
+        # collection name is easiest for developers; the URL escape hatch helps
+        # if Sentinel changes endpoint routing or a proxy is introduced.
         if server_url:
             self.server_url = server_url.rstrip("/")
         elif collection:
@@ -110,6 +133,8 @@ class SentinelMCPClient:
         self.tools: list[MCPTool] = []
 
     async def connect(self) -> None:
+        """Authenticate, initialize the MCP session, and cache available tools."""
+
         token = await self._get_token()
         self._http = httpx.AsyncClient(
             headers={
@@ -132,11 +157,15 @@ class SentinelMCPClient:
         self.tools = await self.list_tools()
 
     async def close(self) -> None:
+        """Dispose the underlying HTTP client."""
+
         if self._http:
             await self._http.aclose()
             self._http = None
 
     async def list_tools(self) -> list[MCPTool]:
+        """Fetch tool metadata from the custom Sentinel MCP collection."""
+
         response = await self._send_request("tools/list", {})
         return [
             MCPTool(
@@ -148,6 +177,8 @@ class SentinelMCPClient:
         ]
 
     async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -> MCPToolResult:
+        """Call one MCP tool by name with a JSON-object argument payload."""
+
         response = await self._send_request(
             "tools/call",
             {"name": tool_name, "arguments": arguments or {}},
@@ -159,11 +190,14 @@ class SentinelMCPClient:
         )
 
     async def _get_token(self) -> str:
+        """Resolve credentials from environment first, then fall back to Azure CLI/browser auth."""
+
         tenant_id = os.getenv("AZURE_TENANT_ID")
         client_id = os.getenv("AZURE_CLIENT_ID")
         client_secret = os.getenv("AZURE_CLIENT_SECRET")
 
         if tenant_id and client_id and client_secret:
+            # Service-principal auth is useful for unattended demos or hosted apps.
             async with ClientSecretCredential(
                 tenant_id=tenant_id,
                 client_id=client_id,
@@ -171,10 +205,14 @@ class SentinelMCPClient:
             ) as credential:
                 return (await credential.get_token(SENTINEL_SCOPE)).token
 
+        # DefaultAzureCredential supports Azure CLI sign-in, managed identity,
+        # Visual Studio Code credentials, and other local developer flows.
         async with DefaultAzureCredential() as credential:
             return (await credential.get_token(SENTINEL_SCOPE)).token
 
     async def _send_request(self, method: str, params: dict[str, Any]) -> dict[str, Any]:
+        """Send a JSON-RPC request and normalize either JSON or SSE responses."""
+
         if not self._http:
             raise SentinelMCPError("Client is not connected.")
 
@@ -193,6 +231,8 @@ class SentinelMCPClient:
 
             content_type = response.headers.get("content-type", "")
             if "text/event-stream" in content_type:
+                # Sentinel MCP may stream JSON-RPC results over SSE, so the demo
+                # supports both simple JSON and streaming responses.
                 return await self._parse_sse_response(response, request_id)
 
             body = await response.aread()
@@ -204,6 +244,8 @@ class SentinelMCPClient:
             return message.get("result", message)
 
     async def _send_notification(self, method: str, params: dict[str, Any]) -> None:
+        """Send a JSON-RPC notification, which has no response ID/result."""
+
         if not self._http:
             raise SentinelMCPError("Client is not connected.")
 
@@ -213,6 +255,8 @@ class SentinelMCPClient:
         )
 
     async def _parse_sse_response(self, response: httpx.Response, request_id: int) -> dict[str, Any]:
+        """Collect SSE data frames until the matching JSON-RPC result appears."""
+
         data_lines: list[str] = []
         async for line in response.aiter_lines():
             if line.startswith("data:"):
@@ -234,6 +278,8 @@ class SentinelMCPClient:
 
     @staticmethod
     def _parse_sse_message(data: str, request_id: int) -> dict[str, Any] | None:
+        """Parse one SSE data payload and return only the result for our request."""
+
         try:
             message = json.loads(data)
         except json.JSONDecodeError:

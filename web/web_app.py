@@ -1,5 +1,12 @@
 from __future__ import annotations
 
+"""Local browser experience for the Gigamon Sentinel MCP demo.
+
+This file intentionally keeps the UI, routing logic, and web endpoints together
+so a Gigamon developer can run one file and understand the end-to-end path:
+browser prompt -> local API -> Sentinel MCP tool -> Log Analytics result.
+"""
+
 import argparse
 import html
 import json
@@ -12,6 +19,7 @@ from dotenv import load_dotenv
 from sentinel_mcp_demo.client import MCPTool, MCPToolResult, SentinelMCPClient
 from sentinel_mcp_demo.mock import MockSentinelMCPClient
 
+# Canonical MCP tool names published by `scripts/publish-mcp-tools.py`.
 GIGAMON_TOOLS = {
     "visibility": "Gigamon_Visibility_Posture_Summary",
     "lateral": "Gigamon_Lateral_Movement_Triage",
@@ -20,6 +28,8 @@ GIGAMON_TOOLS = {
     "talkers": "Gigamon_Top_Talkers_By_App",
 }
 
+# A simple keyword router keeps the demo deterministic and explainable. It is
+# not meant to replace an LLM planner; it shows which tool each prompt triggers.
 TOOL_ROUTES = [
     (("lateral", "east-west", "rdp", "smb", "ssh", "movement"), GIGAMON_TOOLS["lateral"]),
     (("dns", "domain", "lookup", "nxdomain", "servfail"), GIGAMON_TOOLS["dns"]),
@@ -28,6 +38,8 @@ TOOL_ROUTES = [
 ]
 
 
+# The demo is a single-page app embedded as a string to keep setup friction low:
+# no frontend build chain, no npm install, and no separate static-file server.
 HTML = """<!doctype html>
 <html lang="en">
 <head>
@@ -547,6 +559,8 @@ HTML = """<!doctype html>
 
 
 def parse_json_env(name: str, default: dict[str, Any]) -> dict[str, Any]:
+    """Read an environment variable that must contain a JSON object."""
+
     raw = os.getenv(name)
     if not raw:
         return default
@@ -560,6 +574,8 @@ def parse_json_env(name: str, default: dict[str, Any]) -> dict[str, Any]:
 
 
 def render_arguments(message: str, template: str, defaults: dict[str, Any]) -> dict[str, Any]:
+    """Render the MCP argument template and merge demo-wide defaults into it."""
+
     rendered = template.replace("{message}", message)
     try:
         args = json.loads(rendered)
@@ -571,6 +587,8 @@ def render_arguments(message: str, template: str, defaults: dict[str, Any]) -> d
 
 
 def select_tool(prompt: str) -> str:
+    """Choose the best Gigamon MCP tool for a natural-language demo prompt."""
+
     configured = os.getenv("SENTINEL_MCP_TOOL", "").strip()
     prompt_lower = prompt.lower()
     for keywords, tool_name in TOOL_ROUTES:
@@ -580,6 +598,8 @@ def select_tool(prompt: str) -> str:
 
 
 def create_mcp_client() -> SentinelMCPClient | MockSentinelMCPClient:
+    """Create either the real Sentinel MCP client or the offline mock client."""
+
     mode = os.getenv("MCP_DEMO_MODE", "mock").strip().lower()
     if mode == "real":
         return SentinelMCPClient(
@@ -592,6 +612,8 @@ def create_mcp_client() -> SentinelMCPClient | MockSentinelMCPClient:
 
 
 def dataset_rows(result: MCPToolResult) -> list[dict[str, Any]]:
+    """Extract Kusto PrimaryResult rows from the raw MCP text content."""
+
     rows: list[dict[str, Any]] = []
     for item in result.content:
         if item.get("type") != "text":
@@ -615,6 +637,8 @@ def dataset_rows(result: MCPToolResult) -> list[dict[str, Any]]:
         )
         if not primary:
             continue
+        # Convert Kusto's `[columns] + [row arrays]` shape into dictionaries so
+        # the browser cards can address fields by name.
         columns = [column.get("ColumnName", "") for column in primary.get("Columns", [])]
         for row in primary.get("Rows", []):
             rows.append({columns[index]: value for index, value in enumerate(row) if index < len(columns)})
@@ -622,6 +646,8 @@ def dataset_rows(result: MCPToolResult) -> list[dict[str, Any]]:
 
 
 def summarize(prompt: str, tool_name: str, rows: list[dict[str, Any]], raw_text: str) -> str:
+    """Create a presenter-friendly one-paragraph summary from the first result row."""
+
     if not rows:
         return raw_text or f"{tool_name} completed for: {prompt}"
 
@@ -658,10 +684,14 @@ def summarize(prompt: str, tool_name: str, rows: list[dict[str, Any]], raw_text:
 
 
 async def index(_: web.Request) -> web.Response:
+    """Serve the single-page browser UI."""
+
     return web.Response(text=HTML, content_type="text/html")
 
 
 async def status(_: web.Request) -> web.Response:
+    """Return current runtime configuration for the status pill in the UI."""
+
     return web.json_response(
         {
             "mode": os.getenv("MCP_DEMO_MODE", "mock").strip().lower(),
@@ -674,6 +704,8 @@ async def status(_: web.Request) -> web.Response:
 
 
 async def query(request: web.Request) -> web.Response:
+    """Handle a prompt, route it to an MCP tool, and return rows plus summary text."""
+
     payload = await request.json()
     prompt = str(payload.get("prompt", "")).strip()
     if not prompt:
@@ -690,6 +722,7 @@ async def query(request: web.Request) -> web.Response:
     client = create_mcp_client()
     await client.connect()
     try:
+        # The custom tool performs the KQL query inside Sentinel/Log Analytics.
         result = await client.call_tool(tool_name, arguments)
     finally:
         await client.close()
@@ -711,6 +744,8 @@ async def query(request: web.Request) -> web.Response:
 
 
 def build_app() -> web.Application:
+    """Construct the aiohttp application and register browser/API routes."""
+
     load_dotenv()
     app = web.Application()
     app.router.add_get("/", index)
@@ -720,6 +755,8 @@ def build_app() -> web.Application:
 
 
 def main() -> None:
+    """Parse host/port flags and start the local web server."""
+
     parser = argparse.ArgumentParser(description="Run the Gigamon Visibility Copilot web demo.")
     parser.add_argument("--host", default=os.getenv("WEB_DEMO_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=int(os.getenv("WEB_DEMO_PORT", "8765")))

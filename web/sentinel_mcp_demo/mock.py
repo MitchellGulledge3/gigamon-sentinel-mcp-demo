@@ -1,5 +1,12 @@
 from __future__ import annotations
 
+"""Mock MCP client used when the browser demo runs without Azure connectivity.
+
+The mock intentionally mirrors the small interface exposed by `SentinelMCPClient`
+so the rest of the web app can switch between `MCP_DEMO_MODE=mock` and
+`MCP_DEMO_MODE=real` without branching throughout the codebase.
+"""
+
 import json
 from typing import Any
 
@@ -7,7 +14,11 @@ from .client import MCPTool, MCPToolResult
 
 
 class MockSentinelMCPClient:
+    """Return deterministic MCP-like results for offline presenter practice."""
+
     def __init__(self) -> None:
+        # These legacy mock tools are generic examples; real Gigamon demos should
+        # use `MCP_DEMO_MODE=real` with the Gigamon Sentinel MCP collection.
         self.tools = [
             MCPTool(
                 name="Recovery_Confidence_Summary",
@@ -36,15 +47,23 @@ class MockSentinelMCPClient:
         ]
 
     async def connect(self) -> None:
+        """Match the real client's async connect method without doing network I/O."""
+
         return None
 
     async def close(self) -> None:
+        """Match the real client's async close method without owning resources."""
+
         return None
 
     async def list_tools(self) -> list[MCPTool]:
+        """Return static tool metadata in the same shape as `tools/list`."""
+
         return self.tools
 
     async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -> MCPToolResult:
+        """Return a deterministic text result shaped like an MCP tool response."""
+
         args = arguments or {}
         subject = args.get("hostName") or args.get("userId") or args.get("domain") or args.get("query") or "demo target"
         text = {
