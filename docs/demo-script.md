@@ -16,11 +16,21 @@
 4. `Summarize TLS risk`
 5. `Show top talkers by app`
 
+## Story arc
+
+1. **Visibility posture:** prove Gigamon telemetry is present, fresh, and useful in Sentinel.
+2. **Lateral movement:** pivot to east-west/admin protocol flows that may indicate attacker movement.
+3. **DNS anomalies:** look for command-and-control style lookup failures, slow responses, and suspicious names.
+4. **TLS risk:** expose weak protocol, weak key, certificate, and JA3/JA3S signals.
+5. **Top talkers:** prioritize response by applications, sources, destinations, bytes, and packets.
+
 Run them in one interactive terminal:
 
 ```bash
 python3 terminal_demo.py --show-raw
 ```
+
+The detailed use-case and talk-track guide is in `docs/tool-use-cases.md`.
 
 ## Close
 

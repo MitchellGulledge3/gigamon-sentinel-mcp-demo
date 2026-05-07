@@ -74,6 +74,8 @@ The MCP tools expose that investigation as reusable capabilities:
 | `Gigamon_TLS_Risk_Summary` | Summarize weak TLS, weak keys, expiring certs, JA3/JA3S signals |
 | `Gigamon_Top_Talkers_By_App` | Find top applications, sources, destinations, bytes, packets |
 
+For the full narrative, value proposition, latest real outputs, and talk track for each tool, see [`docs/tool-use-cases.md`](docs/tool-use-cases.md).
+
 ## Prerequisites
 
 You need:
@@ -251,4 +253,5 @@ For a real Gigamon-delivered asset, replace the demo pieces as follows:
 | `terminal_demo.py` | Interactive terminal prompt loop that routes prompts to the Gigamon MCP tools |
 | `sentinel_mcp_demo/` | Minimal Sentinel MCP client used by the terminal demo |
 | `docs/demo-script.md` | Step-by-step presenter script |
+| `docs/tool-use-cases.md` | Detailed use-case, value-add, and story guide for every MCP tool |
 | `docs/source-line-notes.md` | Exhaustive source-line notes for Python and JSON files |
