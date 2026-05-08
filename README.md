@@ -8,6 +8,14 @@ The purpose is not to ship another generic chatbot. The purpose is to show how a
 
 Gigamon has rich network visibility in Sentinel; MCP turns that visibility into reusable agent tools such as "summarize posture," "triage lateral movement," "hunt DNS anomalies," and "summarize TLS risk."
 
+## Recommended path for a live working session
+
+If you are walking through this with a Gigamon developer, start here:
+
+[`docs/working-session-guide.md`](docs/working-session-guide.md)
+
+That guide is the most methodical path. It has roles, copy/paste commands, checkpoints, troubleshooting, and the exact places Gigamon would customize the pattern for their own platform.
+
 ## New to Sentinel? Read this first
 
 | Term | Plain-English meaning |
@@ -295,5 +303,6 @@ For a real Gigamon-delivered asset, replace the demo pieces as follows:
 | `terminal_demo.py` | Interactive terminal prompt loop that routes prompts to the Gigamon MCP tools |
 | `sentinel_mcp_demo/` | Minimal Sentinel MCP client used by the terminal demo |
 | `docs/demo-script.md` | Step-by-step presenter script |
+| `docs/working-session-guide.md` | Methodical live-call walkthrough for Microsoft + Gigamon |
 | `docs/tool-use-cases.md` | Detailed use-case, value-add, and story guide for every MCP tool |
 | `docs/source-line-notes.md` | Exhaustive source-line notes for Python and JSON files |

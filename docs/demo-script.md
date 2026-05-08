@@ -1,5 +1,7 @@
 # Demo script
 
+For a live working session with a Gigamon developer, use `docs/working-session-guide.md`. This file is the shorter presenter script.
+
 ## Setup
 
 1. Show the official Gigamon Sentinel connector schema.
