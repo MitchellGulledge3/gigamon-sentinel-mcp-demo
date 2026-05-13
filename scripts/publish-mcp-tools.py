@@ -27,6 +27,9 @@ DESCRIPTIONS = {
     "Gigamon_DNS_Anomaly_Hunt": "Hunt DNS anomalies such as failed lookups, slow responses, suspicious query names, and affected source IPs.",
     "Gigamon_TLS_Risk_Summary": "Summarize TLS risk using protocol versions, weak key sizes, expiring certificates, issuers, CNs, and JA3 signals.",
     "Gigamon_Top_Talkers_By_App": "Rank Gigamon-observed applications by bytes, packets, sources, and destinations.",
+    "Gigamon_JA3_Threat_Match": "Match observed TLS JA3 / JA3S fingerprints against a known-bad list (Cobalt Strike, Sliver, Trickbot, Emotet, RATs) and return hit counts, sample clients, SNIs, and issuers.",
+    "Gigamon_Beacon_Periodicity_Hunt": "Detect command-and-control beaconing by measuring inter-arrival-time periodicity (jitter, IQR ratio) per src/dst/port flow pair.",
+    "Gigamon_Shadow_IT_App_Discovery": "Discover unsanctioned applications (P2P, Tor, consumer VPN, remote-access, crypto-mining, censorship-bypass) using Gigamon Application Intelligence labels.",
 }
 
 
@@ -123,7 +126,13 @@ def main() -> int:
         "description": "Custom Sentinel MCP tools for a Gigamon CCF end-to-end developer demo.",
     }
     print(f"Publishing collection: {args.collection}")
-    print(json.dumps(request("PUT", f"{API_BASE}/{args.collection}", token, collection_payload), indent=2))
+    try:
+        print(json.dumps(request("PUT", f"{API_BASE}/{args.collection}", token, collection_payload), indent=2))
+    except RuntimeError as exc:
+        if "HTTP 409" in str(exc):
+            print(f"  (collection {args.collection} already exists — continuing)")
+        else:
+            raise
 
     # Each KQL filename becomes the MCP tool name, which keeps source control,
     # Sentinel, and the terminal prompt router aligned.
