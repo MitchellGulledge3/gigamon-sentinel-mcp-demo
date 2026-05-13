@@ -9,7 +9,7 @@ By the end, you should have:
 | Outcome | Proof |
 | --- | --- |
 | Demo data in Sentinel | `GigamonCcfMcpDemo_CL` returns rows |
-| Custom MCP tools published | Five Gigamon tools exist in the MCP collection |
+| Custom MCP tools published | Eight Gigamon tools exist in the MCP collection |
 | Terminal demo working | Prompts return Sentinel-backed results |
 | Platform integration path understood | Developer knows which code to reuse in Gigamon's platform |
 
@@ -49,6 +49,7 @@ az account set --subscription "<subscription-id-or-name>"
 ```bash
 git clone https://github.com/MitchellGulledge3/gigamon-sentinel-mcp-demo.git
 cd gigamon-sentinel-mcp-demo
+export REPO_ROOT=$(pwd)
 ```
 
 Show these files first:
@@ -85,8 +86,9 @@ The `workspaceId` is the Log Analytics workspace customer ID, not the Azure reso
 Copy the schema into your LogSeeder repo:
 
 ```bash
-cp ./logseeder/GigamonCcfMcpDemo_CL.json /path/to/sentinel-logseeder/schemas/
-cd /path/to/sentinel-logseeder
+export LOGSEEDER=/path/to/sentinel-logseeder
+cp ./logseeder/GigamonCcfMcpDemo_CL.json "$LOGSEEDER/schemas/"
+cd "$LOGSEEDER"
 ```
 
 Run LogSeeder:
@@ -120,10 +122,10 @@ Stop here until `RowCount` is greater than zero. If it is zero, wait a few minut
 
 ## Step 4: Publish MCP tools
 
-Return to this repo:
+Return to this repo (the path you cloned to in Step 1):
 
 ```bash
-cd /path/to/gigamon-sentinel-mcp-demo
+cd "$REPO_ROOT"
 ```
 
 Publish:
@@ -131,7 +133,7 @@ Publish:
 ```bash
 python3 scripts/publish-mcp-tools.py \
   --collection Gigamon-Sentinel-MCP-Demo \
-  --workspace-id "<log-analytics-workspace-customer-id>"
+  --workspace-id "<workspace-customer-id>"
 ```
 
 Explain this simply:
@@ -154,6 +156,9 @@ Show possible lateral movement
 Hunt DNS anomalies
 Summarize TLS risk
 Show top talkers by app
+Match observed JA3 fingerprints against known-bad signatures
+Hunt for beaconing destinations with low jitter
+Discover unsanctioned shadow IT apps
 ```
 
 Checkpoint:
@@ -165,6 +170,9 @@ Checkpoint:
 | DNS anomalies | Query types, failed/slow counts, names |
 | TLS risk | Protocol versions, weak protocol/key/cert signals |
 | Top talkers | Apps ranked by flows, bytes, packets |
+| JA3 threat match | Known-bad JA3 hits, families (Cobalt Strike, Sliver, Tor, etc.) |
+| Beacon periodicity | (src,dst,port) pairs with low jitter and tight IQR |
+| Shadow IT | Unsanctioned apps + risk category + affected hosts |
 
 ## Step 6: Show where Gigamon would customize
 

@@ -80,7 +80,7 @@ Interactive terminal demo that routes natural prompts to those tools
 | Data Collection Endpoint | LogSeeder/Azure Monitor | Provides the ingestion endpoint for custom logs |
 | Data Collection Rule | LogSeeder/Azure Monitor | Maps JSON fields into the custom table columns |
 | `Gigamon-Sentinel-MCP-Demo` collection | `scripts/publish-mcp-tools.py` | Groups the custom MCP tools |
-| Five MCP tools | `scripts/publish-mcp-tools.py` | Expose repeatable Gigamon investigation questions |
+| Eight MCP tools | `scripts/publish-mcp-tools.py` | Expose repeatable Gigamon investigation questions |
 | Terminal demo | `terminal_demo.py` | Lets a presenter call the tools from a prompt |
 
 ## Why this matters for Gigamon developers
@@ -131,19 +131,47 @@ For the full narrative, value proposition, latest real outputs, and talk track f
 
 ## Prerequisites
 
-You need:
+You'll need:
 
-1. **Azure CLI** authenticated to the Sentinel workspace subscription.
-2. **A Log Analytics workspace** with Microsoft Sentinel enabled.
-3. **Permission to create custom log ingestion resources:** custom tables, DCRs, and DCEs.
-4. **PowerShell 7** for LogSeeder.
-5. **Python 3.9+** for the MCP publishing helper and terminal demo.
-6. **Access to Sentinel custom MCP tool collection APIs** so the KQL files can be published as tools.
+1. **An Azure subscription** with a **Log Analytics workspace** that has **Microsoft Sentinel data lake** enabled.
+2. **Permission to create custom log ingestion resources** (custom tables, DCRs, DCEs) in the workspace's resource group.
+3. **Azure CLI** (`az`) authenticated against that subscription:
+   ```bash
+   brew install azure-cli         # if you don't already have it
+   az login
+   az account set --subscription "<subscription-id-or-name>"
+   ```
+4. **PowerShell 7** (used by LogSeeder for data seeding):
+   ```bash
+   brew install --cask powershell
+   pwsh --version                  # should report 7.x
+   ```
+5. **Python 3.9+** for the publishing helper and terminal demo (`python3 --version`).
+6. **`sentinel-logseeder`** — Microsoft's sample-data tool. Clone it once anywhere on disk:
+   ```bash
+   git clone https://github.com/microsoft/sentinel-logseeder.git
+   ```
+7. **Permission to publish Sentinel custom MCP tool collections.** The publishing helper calls `https://api.securityplatform.microsoft.com/aiprimitives/mcpToolCollections` and acquires an Azure AD token for the resource ID `4500ebfb-89b6-4b14-a480-7f749797bfcd` (Sentinel Platform Services). Your identity must be allowed to create or update MCP tool collections in the target tenant.
 
-For the existing Mitchell demo workspace, the configured workspace customer ID is:
+### Get your workspace customer ID
 
-```text
-77429a58-865a-4764-8429-aaacdfe3cb73
+The publisher and `.env` ask for `<workspace-customer-id>` — the Log Analytics **workspace ID** (a GUID), **not** the Azure resource ID. Find yours with:
+
+```bash
+az monitor log-analytics workspace show \
+  --resource-group <rg> \
+  --workspace-name <workspace> \
+  --query customerId -o tsv
+```
+
+### Authentication for the publisher
+
+`scripts/publish-mcp-tools.py` uses `DefaultAzureCredential`. The simplest path is to be logged into `az` (step 3 above). If you'd rather use a service principal, set the standard env vars before running the script:
+
+```bash
+export AZURE_TENANT_ID=...
+export AZURE_CLIENT_ID=...
+export AZURE_CLIENT_SECRET=...
 ```
 
 ## Seed data with LogSeeder
@@ -153,8 +181,12 @@ This step creates the custom table and sends demo rows into Sentinel. If you are
 Copy `logseeder/GigamonCcfMcpDemo_CL.json` into your `sentinel-logseeder/schemas/` folder, then run:
 
 ```bash
-cp /path/to/gigamon-sentinel-mcp-demo/logseeder/GigamonCcfMcpDemo_CL.json ./schemas/
-cd /path/to/sentinel-logseeder
+# Adjust to your paths
+export REPO_ROOT=$(pwd)                       # this repo
+export LOGSEEDER=/path/to/sentinel-logseeder  # where you cloned LogSeeder
+
+cp "$REPO_ROOT/logseeder/GigamonCcfMcpDemo_CL.json" "$LOGSEEDER/schemas/"
+cd "$LOGSEEDER"
 pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass \
   -File ./scripts/Invoke-SampleDataIngestion.ps1 \
   -TableName GigamonCcfMcpDemo_CL \
@@ -208,10 +240,10 @@ Gigamon-Sentinel-MCP-Demo
 This repo includes a helper script that publishes every KQL file in `mcp-tools/`:
 
 ```bash
-cd /path/to/gigamon-sentinel-mcp-demo
+cd "$REPO_ROOT"
 python3 scripts/publish-mcp-tools.py \
   --collection Gigamon-Sentinel-MCP-Demo \
-  --workspace-id <log-analytics-workspace-customer-id>
+  --workspace-id <workspace-customer-id>
 ```
 
 The script:
@@ -227,7 +259,7 @@ The script:
 Run the included interactive terminal demo:
 
 ```bash
-cd /path/to/gigamon-sentinel-mcp-demo
+cd "$REPO_ROOT"
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -237,7 +269,7 @@ cp .env.example .env
 Edit `.env` and set:
 
 ```text
-MCP_DEFAULT_ARGUMENTS={"workspaceId":"<log-analytics-workspace-customer-id>"}
+MCP_DEFAULT_ARGUMENTS={"workspaceId":"<workspace-customer-id>"}
 ```
 
 Then start the app:
@@ -254,6 +286,9 @@ Show possible lateral movement
 Hunt DNS anomalies
 Summarize TLS risk
 Show top talkers by app
+Match observed JA3 fingerprints against known-bad signatures
+Hunt for beaconing destinations with low jitter
+Discover unsanctioned shadow IT apps
 ```
 
 For a single command you can paste into a demo script, run:

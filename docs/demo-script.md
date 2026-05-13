@@ -17,6 +17,9 @@ For a live working session with a Gigamon developer, use `docs/working-session-g
 3. `Hunt DNS anomalies`
 4. `Summarize TLS risk`
 5. `Show top talkers by app`
+6. `Match observed JA3 fingerprints against known-bad signatures`
+7. `Hunt for beaconing destinations with low jitter`
+8. `Discover unsanctioned shadow IT apps`
 
 ## Story arc
 
@@ -25,6 +28,9 @@ For a live working session with a Gigamon developer, use `docs/working-session-g
 3. **DNS anomalies:** look for command-and-control style lookup failures, slow responses, and suspicious names.
 4. **TLS risk:** expose weak protocol, weak key, certificate, and JA3/JA3S signals.
 5. **Top talkers:** prioritize response by applications, sources, destinations, bytes, and packets.
+6. **★ JA3 threat match:** show the DPI-unique capability — observed JA3/JA3S fingerprints matched to known-bad C2/RAT families.
+7. **Beacon periodicity:** detect C2 callback patterns by analyzing inter-arrival jitter and IQR per (src,dst,port).
+8. **Shadow IT:** surface unsanctioned apps (P2P, Tor, consumer VPN, RMM, personal cloud, crypto-mining) and the affected hosts.
 
 Run them in one interactive terminal:
 
