@@ -1,5 +1,7 @@
 # Gigamon Sentinel MCP Demo
 
+> 💡 **Two ways to publish these tools.** This repo uses the **Sentinel custom MCP API** (`scripts/publish-mcp-tools.py` — idempotent PUT, scriptable, CI/CD-friendly). If you'd rather register each tool by hand in the Microsoft Defender portal, the same KQL is mirrored in the UI-publish variant at [gigamon-sentinel-mcp-demo-ui](https://github.com/MitchellGulledge3/gigamon-sentinel-mcp-demo-ui). The API path is the **engineering-approved** approach for ISV reference implementations going forward.
+
 This repo is a GitHub-ready reference implementation for a Gigamon developer who wants to show an end-to-end Microsoft Sentinel custom MCP tool integration.
 
 The purpose is not to ship another generic chatbot. The purpose is to show how an ISV can expose focused, high-value security capabilities as **MCP tools** over the data they already bring into Microsoft Sentinel. Once those tools exist, a terminal demo, an ISV product experience, a Copilot-style UI, or another agent runtime can call the same capability.
