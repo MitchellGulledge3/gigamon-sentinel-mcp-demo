@@ -1,6 +1,6 @@
 # Gigamon Sentinel MCP Demo
 
-> 💡 **Two ways to publish these tools.** This repo uses the **Sentinel custom MCP API** (`scripts/publish-mcp-tools.py` — idempotent PUT, scriptable, CI/CD-friendly). If you'd rather register each tool by hand in the Microsoft Defender portal, the same KQL is mirrored in the UI-publish variant at [gigamon-sentinel-mcp-demo-ui](https://github.com/mgulledge_microsoft/gigamon-sentinel-mcp-demo-ui). The API path is the **engineering-approved** approach for ISV reference implementations going forward.
+> 💡 **Two ways to publish these tools.** This repo uses the **Sentinel custom MCP API** (`scripts/publish-mcp-tools.py` — idempotent PUT, scriptable, CI/CD-friendly). If you'd rather register each tool by hand in the Microsoft Defender portal, the same KQL is mirrored in the UI-publish variant at [gigamon-sentinel-mcp-demo-ui](https://github.com/MitchellGulledge3/gigamon-sentinel-mcp-demo-ui). The API path is the **engineering-approved** approach for ISV reference implementations going forward.
 
 This repo is a GitHub-ready reference implementation for a Gigamon developer who wants to show an end-to-end Microsoft Sentinel custom MCP tool integration.
 
@@ -389,4 +389,4 @@ EDR cannot see TLS handshake fingerprints. Only a deep-observability sensor on t
 
 ### Note on the "0 beacons" result
 
-The beacon hunter returns 0 candidate beacons against the current data — that's the **expected, clean** state. The tool flags pairs only when jitter < 0.25 AND IQR ratio < 0.3 AND median gap ≥ 15s. The companion notebook [`04-beacon-periodicity-analysis.ipynb`](https://github.com/mgulledge_microsoft/gigamon-sentinel-notebooks) does the same math visually so analysts can drill in even when the MCP tool returns "all clear."
+The beacon hunter returns 0 candidate beacons against the current data — that's the **expected, clean** state. The tool flags pairs only when jitter < 0.25 AND IQR ratio < 0.3 AND median gap ≥ 15s. The companion notebook [`04-beacon-periodicity-analysis.ipynb`](https://github.com/MitchellGulledge3/gigamon-sentinel-notebooks) does the same math visually so analysts can drill in even when the MCP tool returns "all clear."
